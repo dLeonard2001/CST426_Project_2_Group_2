@@ -12,12 +12,15 @@ public class character_1 : MonoBehaviour
     public float jump_force;
     public float slide_force;
 
-
+    [Header("Sliding Config")] 
+    public float slideTimer;
+    public float maxSlideTime;
+    
     private float move_speed;
+    private bool isJumping;
+    
     [Header("Components")] 
     public Rigidbody rb_player;
-
-    
     
     // player input
     private InputManager inputManager;
@@ -31,20 +34,33 @@ public class character_1 : MonoBehaviour
         sliding,
         air
     }
-    private state playerState;
+    private state player_movement_State;
 
 
     private void Start()
     {
         inputManager = InputManager.createInstance();
-        playerState = state.walking;
+        player_movement_State = state.walking;
+        slideTimer = maxSlideTime;
     }
 
+    // get input
+    private void Update()
+    {
+        if (inputManager.Jump())
+        {
+            isJumping = true;
+        }
+    }
+
+    // handle input
     private void FixedUpdate()
     {
+        if ((slideTimer < 0 || slideTimer > 0) && !inputManager.Slide())
+        {
+            slideTimer = maxSlideTime;
+        }
         HandleInput();
-        
-        rb_player.AddForce(move_speed * Vector3.down, ForceMode.Force);
     }
 
     public void HandleInput()
@@ -54,22 +70,58 @@ public class character_1 : MonoBehaviour
             // sliding
         // jump 
             // air
+
         if (inputManager.moveForward())
         {
-            rb_player.AddForce(move_speed * Vector3.forward, ForceMode.Force);
+            move_speed = walk_speed;
+            if (inputManager.Sprint())
+            {
+                if (inputManager.Slide() && slideTimer > 0)
+                {
+                    move_speed = slide_force;
+                    rb_player.AddForce(move_speed * Vector3.forward, ForceMode.Impulse);
+                    slideTimer -= Time.fixedDeltaTime;
+                }
+                else
+                {
+                    move_speed = sprint_speed;
+                    rb_player.AddForce(move_speed * Vector3.forward, ForceMode.Impulse); 
+                }
+            }
+            else
+            {
+                rb_player.AddForce(move_speed * Vector3.forward, ForceMode.Impulse);
+            }
+                    
         }else if (inputManager.moveBackward())
         {
-            rb_player.AddForce(move_speed * Vector3.back, ForceMode.Force);
+            move_speed = walk_speed / 2;
+            rb_player.AddForce(move_speed * Vector3.back, ForceMode.Impulse);
         }
 
         if (inputManager.moveLeft())
         {
-            rb_player.AddForce(move_speed * Vector3.left, ForceMode.Force);
-        }else if(inputManager.moveRight())
+            move_speed = walk_speed;
+            rb_player.AddForce(move_speed * Vector3.left, ForceMode.Impulse); 
+        }else if(inputManager.moveRight()) 
         {
-            rb_player.AddForce(move_speed * Vector3.right, ForceMode.Force);
+            move_speed = walk_speed;
+            rb_player.AddForce(move_speed * Vector3.right, ForceMode.Impulse);
         }
 
+        if (isJumping)
+        {
+            move_speed = jump_force;
+            rb_player.AddForce(move_speed * Vector3.up, ForceMode.Impulse);
+
+            isJumping = false;
+        }
+        else
+        {
+            rb_player.AddForce(Vector3.down * 5, ForceMode.Force);
+        }
+            
+        // cap player's movement speed
         if (rb_player.velocity.magnitude > move_speed)
         {
             Vector3 vel = rb_player.velocity;
