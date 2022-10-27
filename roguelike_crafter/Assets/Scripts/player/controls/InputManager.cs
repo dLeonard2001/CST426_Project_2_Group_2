@@ -99,6 +99,11 @@ public class InputManager : MonoBehaviour
         return playerControls.player.Ability_5.WasPressedThisFrame();
     }
 
+    public Vector2 GetMouseDelta()
+    {
+        return playerControls.player.GetMouseDelta.ReadValue<Vector2>();
+    }
+
 
 
 

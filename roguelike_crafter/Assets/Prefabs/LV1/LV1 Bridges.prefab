@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5124619961365770635}
   - component: {fileID: 5124619961365770632}
   - component: {fileID: 5124619961365770633}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_(0.00, 0.00, -1000.00)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 5124619961485441586}
   - component: {fileID: 5124619961485441587}
   - component: {fileID: 5124619961485441584}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_(0.00, 0.00, 1000.00)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 5124619961983996665}
   - component: {fileID: 5124619961983996670}
   - component: {fileID: 5124619961983996671}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_(1000.00, 0.00, 0.00)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 5124619962004123678}
   - component: {fileID: 5124619962004123679}
   - component: {fileID: 5124619962004123676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LV1 Bridges
   m_TagString: LV1 LandEscape
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 5124619963029956268}
   - component: {fileID: 5124619963029956270}
   - component: {fileID: 5124619963029956271}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_(-1000.00, 0.00, 0.00)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,6 +411,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Arch
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149283639508584069, guid: 8d3781a58a2c835419977ce8dbab3033,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8149283639508584071, guid: 8d3781a58a2c835419977ce8dbab3033,
         type: 3}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
@@ -31,7 +32,6 @@ public class character_1 : MonoBehaviour
 
     [Header("Components")] 
     public Rigidbody rb_player;
-
 
     [Header("Layers")] 
     public LayerMask whatIsGround;
@@ -116,7 +116,6 @@ public class character_1 : MonoBehaviour
                     rb_player.AddForce(movement_speed * Vector3.forward, ForceMode.Impulse);
                     slideTimer -= Time.fixedDeltaTime;
                     transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(1f, 0.5f, 1), transform.localScale.z);
-                    rb_player.AddForce(Vector3.down * 10, ForceMode.Impulse);
                 }
                 else
                 {
