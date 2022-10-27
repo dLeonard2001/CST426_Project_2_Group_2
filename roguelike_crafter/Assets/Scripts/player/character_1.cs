@@ -58,16 +58,16 @@ public class character_1 : MonoBehaviour
         slideTimer = maxSlideTime;
         
         // set character stats
-        health = 100;
-        attackSpeed = 2.5f;
-        movement_speed = 5;
-        luck = 0.5f;
+        // health = 100;
+        // attackSpeed = 2.5f;
+        // movement_speed = 5;
+        // luck = 0.5f;
 
         // set speeds based on player's movement speed
         walk_speed = movement_speed;
-        sprint_speed = movement_speed * 2;
+        sprint_speed = movement_speed * 1.5f;
         jumpForce = movement_speed * 2;
-        slideForce = movement_speed * 2;
+        slideForce = movement_speed * 2.25f;
     }
 
     // get input
@@ -78,9 +78,8 @@ public class character_1 : MonoBehaviour
             isJumping = true;
         }
 
-        if (Physics.Raycast(transform.position, Vector3.down, 5, whatIsGround))
+        if (Physics.Raycast(transform.position, Vector3.down, 1, whatIsGround))
         {
-            Debug.Log("on the ground");
             isGrounded = true;
         }
         
@@ -93,6 +92,7 @@ public class character_1 : MonoBehaviour
         if ((slideTimer < 0 || slideTimer > 0) && !inputManager.Slide())
         {
             slideTimer = maxSlideTime;
+            transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
         }
         HandleInput();
     }
@@ -115,6 +115,8 @@ public class character_1 : MonoBehaviour
                     movement_speed = slideForce;
                     rb_player.AddForce(movement_speed * Vector3.forward, ForceMode.Impulse);
                     slideTimer -= Time.fixedDeltaTime;
+                    transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(1f, 0.5f, 1), transform.localScale.z);
+                    rb_player.AddForce(Vector3.down * 10, ForceMode.Impulse);
                 }
                 else
                 {

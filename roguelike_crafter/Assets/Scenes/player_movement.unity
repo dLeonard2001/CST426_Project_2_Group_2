@@ -649,7 +649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463950444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.2, z: -4.23}
+  m_LocalPosition: {x: 0, y: 2.92, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -942,7 +942,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804260780}
   m_LocalRotation: {x: -0.20227194, y: 0.37420234, z: -0.083997235, w: -0.9011122}
-  m_LocalPosition: {x: 0, y: 2.2, z: -4.23}
+  m_LocalPosition: {x: 0, y: 2.92, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -995,8 +995,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0, y: 0.53, z: -2.23}
+  Damping: {x: 0.35, y: 0.35, z: 0.4}
+  ShoulderOffset: {x: 0, y: 1.25, z: -4}
   VerticalArmLength: 0.4
   CameraSide: 1
   CameraDistance: 2
@@ -1314,7 +1314,7 @@ Transform:
   m_GameObject: {fileID: 1484825657}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25, y: 1, z: 8}
+  m_LocalScale: {x: 10, y: 1, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1350,19 +1350,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca4d3e1f1eaecc24faa4b91faa4c0233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  base_damage: 0
-  attackSpeed: 0
+  health: 100
+  base_damage: 10
+  attackSpeed: 2.5
   crit_chance: 0
-  crit_damage: 0
-  movement_speed: 0
-  luck: 0
+  crit_damage: 1
+  movement_speed: 5
+  luck: 0.5
   slideTimer: 0
   maxSlideTime: 1
   rb_player: {fileID: 1785720052}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!54 &1785720052
 Rigidbody:
   m_ObjectHideFlags: 0
