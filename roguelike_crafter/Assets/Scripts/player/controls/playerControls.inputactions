@@ -123,10 +123,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GetMouseDelta",
-                    "type": "PassThrough",
-                    "id": "60f69b48-0044-4fe5-a0f0-5f85733535c2",
-                    "expectedControlType": "Vector2",
+                    "name": "attack",
+                    "type": "Button",
+                    "id": "29f1cc62-8317-4771-a246-749b886aa11d",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -278,12 +278,12 @@
                 },
                 {
                     "name": "",
-                    "id": "b31a34e2-9954-40fa-82c9-6ff00159456b",
-                    "path": "<Mouse>/delta",
+                    "id": "c42bb6cc-82c8-4329-b0cd-df9c973f9342",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetMouseDelta",
+                    "action": "attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

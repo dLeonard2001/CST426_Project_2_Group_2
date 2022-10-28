@@ -17,6 +17,8 @@ public class character_1 : MonoBehaviour
     public float movement_speed;
     public float luck;
 
+    private bool attackReady;
+
     [Header("Player Forces")] 
     private float walk_speed;
     private float sprint_speed;
@@ -30,8 +32,12 @@ public class character_1 : MonoBehaviour
     public float slideTimer;
     public float maxSlideTime;
 
-    [Header("Components")] 
+    [Header("References/Components")] 
+    public GameObject projectile;
+    public Transform attackPosition;
+    
     public Rigidbody rb_player;
+    public CinemachineVirtualCamera v_cam;
 
     [Header("Layers")] 
     public LayerMask whatIsGround;
@@ -68,6 +74,8 @@ public class character_1 : MonoBehaviour
         sprint_speed = movement_speed * 1.5f;
         jumpForce = movement_speed * 2;
         slideForce = movement_speed * 2.25f;
+
+        attackReady = true;
     }
 
     // get input
@@ -82,6 +90,8 @@ public class character_1 : MonoBehaviour
         {
             isGrounded = true;
         }
+
+        // v_cam.transform.position = Vector3.zero;
         
         Debug.DrawRay(transform.position, Vector3.down * 3, Color.red);
     }
@@ -89,6 +99,10 @@ public class character_1 : MonoBehaviour
     // handle input
     private void FixedUpdate()
     {
+        if (inputManager.Attack())
+        {
+            attackReady = true;
+        }
         if ((slideTimer < 0 || slideTimer > 0) && !inputManager.Slide())
         {
             slideTimer = maxSlideTime;
@@ -99,6 +113,7 @@ public class character_1 : MonoBehaviour
 
     public void HandleInput()
     {
+        
         // walking
         // sprinting
             // sliding
@@ -166,5 +181,13 @@ public class character_1 : MonoBehaviour
             
             rb_player.velocity = new Vector3(limitedVel.x, vel.y, limitedVel.z);
         }
+    }
+
+
+    // fire the gun 
+    private void Attack()
+    {
+        attackReady = false;
+
     }
 }

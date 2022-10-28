@@ -99,12 +99,9 @@ public class InputManager : MonoBehaviour
         return playerControls.player.Ability_5.WasPressedThisFrame();
     }
 
-    public Vector2 GetMouseDelta()
+    public bool Attack()
     {
-        return playerControls.player.GetMouseDelta.ReadValue<Vector2>();
+        return playerControls.player.attack.WasPressedThisFrame();
     }
-
-
-
 
 }

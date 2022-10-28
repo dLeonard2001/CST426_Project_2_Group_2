@@ -145,10 +145,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GetMouseDelta"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""60f69b48-0044-4fe5-a0f0-5f85733535c2"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""29f1cc62-8317-4771-a246-749b886aa11d"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -300,12 +300,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b31a34e2-9954-40fa-82c9-6ff00159456b"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""c42bb6cc-82c8-4329-b0cd-df9c973f9342"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetMouseDelta"",
+                    ""action"": ""attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -329,7 +329,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_player_Ability_4 = m_player.FindAction("Ability_4", throwIfNotFound: true);
         m_player_Ability_5 = m_player.FindAction("Ability_5", throwIfNotFound: true);
         m_player_use_item = m_player.FindAction("use_item", throwIfNotFound: true);
-        m_player_GetMouseDelta = m_player.FindAction("GetMouseDelta", throwIfNotFound: true);
+        m_player_attack = m_player.FindAction("attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -402,7 +402,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_player_Ability_4;
     private readonly InputAction m_player_Ability_5;
     private readonly InputAction m_player_use_item;
-    private readonly InputAction m_player_GetMouseDelta;
+    private readonly InputAction m_player_attack;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -420,7 +420,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Ability_4 => m_Wrapper.m_player_Ability_4;
         public InputAction @Ability_5 => m_Wrapper.m_player_Ability_5;
         public InputAction @use_item => m_Wrapper.m_player_use_item;
-        public InputAction @GetMouseDelta => m_Wrapper.m_player_GetMouseDelta;
+        public InputAction @attack => m_Wrapper.m_player_attack;
         public InputActionMap Get() { return m_Wrapper.m_player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -469,9 +469,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @use_item.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse_item;
                 @use_item.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse_item;
                 @use_item.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse_item;
-                @GetMouseDelta.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGetMouseDelta;
-                @GetMouseDelta.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGetMouseDelta;
-                @GetMouseDelta.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGetMouseDelta;
+                @attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -515,9 +515,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @use_item.started += instance.OnUse_item;
                 @use_item.performed += instance.OnUse_item;
                 @use_item.canceled += instance.OnUse_item;
-                @GetMouseDelta.started += instance.OnGetMouseDelta;
-                @GetMouseDelta.performed += instance.OnGetMouseDelta;
-                @GetMouseDelta.canceled += instance.OnGetMouseDelta;
+                @attack.started += instance.OnAttack;
+                @attack.performed += instance.OnAttack;
+                @attack.canceled += instance.OnAttack;
             }
         }
     }
@@ -537,6 +537,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAbility_4(InputAction.CallbackContext context);
         void OnAbility_5(InputAction.CallbackContext context);
         void OnUse_item(InputAction.CallbackContext context);
-        void OnGetMouseDelta(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }
