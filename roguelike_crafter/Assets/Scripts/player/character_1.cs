@@ -37,7 +37,7 @@ public class character_1 : MonoBehaviour
     public Transform attackPosition;
     
     public Rigidbody rb_player;
-    public CinemachineVirtualCamera v_cam;
+    public Camera cam;
 
     [Header("Layers")] 
     public LayerMask whatIsGround;
@@ -81,6 +81,12 @@ public class character_1 : MonoBehaviour
     // get input
     private void Update()
     {
+        
+        if (inputManager.Attack())
+        {
+            attackReady = true;
+        }
+        
         if (inputManager.Jump())
         {
             isJumping = true;
@@ -91,18 +97,14 @@ public class character_1 : MonoBehaviour
             isGrounded = true;
         }
 
-        // v_cam.transform.position = Vector3.zero;
-        
         Debug.DrawRay(transform.position, Vector3.down * 3, Color.red);
     }
 
     // handle input
     private void FixedUpdate()
     {
-        if (inputManager.Attack())
-        {
-            attackReady = true;
-        }
+        transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
+
         if ((slideTimer < 0 || slideTimer > 0) && !inputManager.Slide())
         {
             slideTimer = maxSlideTime;
@@ -128,48 +130,48 @@ public class character_1 : MonoBehaviour
                 if (inputManager.Slide() && slideTimer > 0)
                 {
                     movement_speed = slideForce;
-                    rb_player.AddForce(movement_speed * Vector3.forward, ForceMode.Impulse);
+                    rb_player.AddForce(movement_speed * transform.forward, ForceMode.Impulse);
                     slideTimer -= Time.fixedDeltaTime;
                     transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(1f, 0.5f, 1), transform.localScale.z);
                 }
                 else
                 {
                     movement_speed = sprint_speed;
-                    rb_player.AddForce(movement_speed * Vector3.forward, ForceMode.Impulse); 
+                    rb_player.AddForce(movement_speed * transform.forward, ForceMode.Impulse); 
                 }
             }
             else
             {
-                rb_player.AddForce(movement_speed * Vector3.forward, ForceMode.Impulse);
+                rb_player.AddForce(movement_speed * transform.forward, ForceMode.Impulse);
             }
                     
         }else if (inputManager.moveBackward())
         {
             movement_speed = walk_speed / 2;
-            rb_player.AddForce(movement_speed * Vector3.back, ForceMode.Impulse);
+            rb_player.AddForce(movement_speed * -transform.forward, ForceMode.Impulse);
         }
 
         if (inputManager.moveLeft())
         {
             movement_speed = walk_speed;
-            rb_player.AddForce(movement_speed * Vector3.left, ForceMode.Impulse); 
+            rb_player.AddForce(movement_speed * -transform.right, ForceMode.Impulse); 
         }else if(inputManager.moveRight()) 
         {
             movement_speed = walk_speed;
-            rb_player.AddForce(movement_speed * Vector3.right, ForceMode.Impulse);
+            rb_player.AddForce(movement_speed * transform.right, ForceMode.Impulse);
         }
 
         if (isJumping && isGrounded)
         {
             movement_speed = jumpForce;
-            rb_player.AddForce(movement_speed * Vector3.up, ForceMode.Impulse);
+            rb_player.AddForce(movement_speed * transform.up, ForceMode.Impulse);
 
             isJumping = false;
             isGrounded = false;
         }
         else
         {
-            rb_player.AddForce(Vector3.down * 5, ForceMode.Force);
+            rb_player.AddForce(-transform.up * 5, ForceMode.Force);
         }
             
         // cap player's movement speed

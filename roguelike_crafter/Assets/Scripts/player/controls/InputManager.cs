@@ -39,6 +39,11 @@ public class InputManager : MonoBehaviour
         playerControls.Disable();
     }
 
+    public Vector2 Look()
+    {
+        return playerControls.player.look.ReadValue<Vector2>();
+    }
+
     public bool moveForward()
     {
         return playerControls.player.Forward.IsPressed();

@@ -152,6 +152,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""look"",
+                    ""type"": ""Value"",
+                    ""id"": ""73079a9f-5347-48d5-bb38-1e6d6ba0cc61"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -308,6 +317,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3bb704f5-2a37-49ea-93d0-e560d7ad8854"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -330,6 +350,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_player_Ability_5 = m_player.FindAction("Ability_5", throwIfNotFound: true);
         m_player_use_item = m_player.FindAction("use_item", throwIfNotFound: true);
         m_player_attack = m_player.FindAction("attack", throwIfNotFound: true);
+        m_player_look = m_player.FindAction("look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -403,6 +424,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_player_Ability_5;
     private readonly InputAction m_player_use_item;
     private readonly InputAction m_player_attack;
+    private readonly InputAction m_player_look;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -421,6 +443,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Ability_5 => m_Wrapper.m_player_Ability_5;
         public InputAction @use_item => m_Wrapper.m_player_use_item;
         public InputAction @attack => m_Wrapper.m_player_attack;
+        public InputAction @look => m_Wrapper.m_player_look;
         public InputActionMap Get() { return m_Wrapper.m_player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -472,6 +495,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -518,6 +544,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @attack.started += instance.OnAttack;
                 @attack.performed += instance.OnAttack;
                 @attack.canceled += instance.OnAttack;
+                @look.started += instance.OnLook;
+                @look.performed += instance.OnLook;
+                @look.canceled += instance.OnLook;
             }
         }
     }
@@ -538,5 +567,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAbility_5(InputAction.CallbackContext context);
         void OnUse_item(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }
