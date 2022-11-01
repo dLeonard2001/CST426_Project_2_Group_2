@@ -17,7 +17,19 @@ public class character_1 : MonoBehaviour
     public float movement_speed;
     public float luck;
 
+    private int maxHealth;
     private bool attackReady;
+
+    [Header("Ability Config")] 
+    public float ability_1_cooldown;
+    public float ability_2_cooldown;
+    public float ability_3_cooldown;
+    public float ability_4_cooldown;
+    
+    private float ability_1_max_cooldown;
+    private float ability_2_max_cooldown;
+    private float ability_3_max_cooldown;
+    private float ability_4_max_cooldown;
 
     [Header("Player Forces")] 
     private float walk_speed;
@@ -55,6 +67,26 @@ public class character_1 : MonoBehaviour
         air
     }
     private state player_movement_State;
+    
+    // shooting logic
+        // vec3 v;
+        // ray.ViewPortRay(0.5, 0.5, 0);
+            // if(raycast)
+                // v = raycast.point;
+            // else 
+                // v = raycast.GetPoint(75);
+                
+            // get the direction to send our bullet
+                // c = b - a;
+                    // direction = v.position - barrel.position;
+                
+            // rotate bullet's transform to face forward
+                // bullet.transform.forward = direction.normalized;
+            // add force to bullet
+                // bullet.AddForce(direction.normalized * bulletspeed, impulse);
+    
+    
+                    
 
 
     private void Start()
@@ -76,6 +108,7 @@ public class character_1 : MonoBehaviour
         slideForce = movement_speed * 2.25f;
 
         attackReady = true;
+        maxHealth = health;
     }
 
     // get input
@@ -184,12 +217,28 @@ public class character_1 : MonoBehaviour
             rb_player.velocity = new Vector3(limitedVel.x, vel.y, limitedVel.z);
         }
     }
-
-
+    
     // fire the gun 
     private void Attack()
     {
         attackReady = false;
 
+    }
+
+    private void increaseMaxHealth(int addToMaxHealth)
+    {
+        maxHealth += addToMaxHealth;
+    }
+
+    private void heal(int healthToHeal)
+    {
+        health += healthToHeal;
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+        
+        // update UI
     }
 }
