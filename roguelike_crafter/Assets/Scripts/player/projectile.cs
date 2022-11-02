@@ -15,9 +15,12 @@ public class projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "enemy")
+        if (collision.transform.CompareTag("enemy"))
         {
+            Debug.Log(damage);
             collision.transform.GetComponent<enemyHealth>().TakeDamage(damage);
         }
+        
+        Destroy(gameObject, 5f);
     }
 }

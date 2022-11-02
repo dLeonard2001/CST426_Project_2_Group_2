@@ -18,7 +18,9 @@ public class character_1 : MonoBehaviour
     public float luck;
 
     private int maxHealth;
-    private bool attackReady;
+    private bool readyToShoot;
+    private RaycastHit target;
+    private Vector3 targetPos;
 
     [Header("Ability Config")] 
     public float ability_1_cooldown;
@@ -47,6 +49,8 @@ public class character_1 : MonoBehaviour
     [Header("References/Components")] 
     public GameObject projectile;
     public Transform attackPosition;
+
+    private projectile proj_script;
     
     public Rigidbody rb_player;
     public Camera cam;
@@ -85,10 +89,6 @@ public class character_1 : MonoBehaviour
             // add force to bullet
                 // bullet.AddForce(direction.normalized * bulletspeed, impulse);
     
-    
-                    
-
-
     private void Start()
     {
         inputManager = InputManager.createInstance();
@@ -107,18 +107,16 @@ public class character_1 : MonoBehaviour
         jumpForce = movement_speed * 2;
         slideForce = movement_speed * 2.25f;
 
-        attackReady = true;
+        readyToShoot = true;
         maxHealth = health;
+
+        proj_script = projectile.GetComponent<projectile>();
+        projectile.GetComponent<projectile>().setDamage(base_damage);
     }
 
     // get input
     private void Update()
     {
-        
-        if (inputManager.Attack())
-        {
-            attackReady = true;
-        }
         
         if (inputManager.Jump())
         {
@@ -129,6 +127,10 @@ public class character_1 : MonoBehaviour
         {
             isGrounded = true;
         }
+        else
+        {
+            isGrounded = false;
+        }
 
         Debug.DrawRay(transform.position, Vector3.down * 3, Color.red);
     }
@@ -136,6 +138,11 @@ public class character_1 : MonoBehaviour
     // handle input
     private void FixedUpdate()
     {
+        if (inputManager.Attack() && readyToShoot)
+        {
+            Shoot();
+        }
+        
         transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
 
         if ((slideTimer < 0 || slideTimer > 0) && !inputManager.Slide())
@@ -219,10 +226,37 @@ public class character_1 : MonoBehaviour
     }
     
     // fire the gun 
-    private void Attack()
+    private void Shoot()
     {
-        attackReady = false;
+        // Debug.Log("shooting");
+        readyToShoot = false;
 
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+        if (Physics.Raycast(ray, out target))
+        {
+            targetPos = target.point;
+        }
+        else
+        {
+            targetPos = ray.GetPoint(75);
+        }
+
+        Vector3 direction = targetPos - attackPosition.position;
+
+        projectile.transform.forward = direction.normalized;
+        
+        // bullet creation
+        GameObject bullet = Instantiate(projectile, attackPosition.position, Quaternion.identity);
+        bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * proj_script.projectileSpeed, ForceMode.Impulse);
+        bullet.GetComponent<projectile>().setDamage(base_damage);
+        
+        Invoke(nameof(resetShoot), 0.25f);
+    }
+
+    public void resetShoot()
+    {
+        readyToShoot = true;
     }
 
     private void increaseMaxHealth(int addToMaxHealth)

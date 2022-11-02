@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LV1 LandEscape
+  - enemy
   layers:
   - Default
   - TransparentFX

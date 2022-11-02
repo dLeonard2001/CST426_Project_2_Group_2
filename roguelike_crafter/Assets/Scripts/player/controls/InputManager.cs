@@ -106,7 +106,7 @@ public class InputManager : MonoBehaviour
 
     public bool Attack()
     {
-        return playerControls.player.attack.WasPressedThisFrame();
+        return playerControls.player.attack.IsPressed();
     }
 
 }
