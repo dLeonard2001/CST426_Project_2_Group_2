@@ -6,9 +6,9 @@ using UnityEngine;
 public class projectile : MonoBehaviour
 {
     public float projectileSpeed;
-    private int damage;
+    private long damage;
     
-    public void setDamage(int newDmg)
+    public void setDamage(long newDmg)
     {
         damage = newDmg;
     }
@@ -17,8 +17,9 @@ public class projectile : MonoBehaviour
     {
         if (collision.transform.CompareTag("enemy"))
         {
-            Debug.Log(damage);
+            // Debug.Log(damage);
             collision.transform.GetComponent<enemyHealth>().TakeDamage(damage);
+            Destroy(gameObject);
         }
         
         Destroy(gameObject, 5f);

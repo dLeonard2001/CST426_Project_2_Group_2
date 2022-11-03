@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class enemyHealth : MonoBehaviour
 {
-    public int health;
+    public long health;
 
-    public void TakeDamage(int damageToInflict)
+    public void TakeDamage(long damageToInflict)
     {
         health -= damageToInflict;
 

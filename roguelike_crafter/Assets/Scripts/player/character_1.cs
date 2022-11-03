@@ -9,15 +9,15 @@ public class character_1 : MonoBehaviour
 {
 
     [Header("Character Stats")] 
-    public int health;
-    public int base_damage;
+    public long health;
+    public long base_damage;
     public float attackSpeed;
     public float crit_chance;
     public float crit_damage;
     public float movement_speed;
     public float luck;
 
-    private int maxHealth;
+    private healthController health_controller;
     private bool readyToShoot;
     private RaycastHit target;
     private Vector3 targetPos;
@@ -108,10 +108,14 @@ public class character_1 : MonoBehaviour
         slideForce = movement_speed * 2.25f;
 
         readyToShoot = true;
-        maxHealth = health;
 
         proj_script = projectile.GetComponent<projectile>();
         projectile.GetComponent<projectile>().setDamage(base_damage);
+
+        health_controller = GetComponent<healthController>();
+        health_controller.setCurrentHealth(health);
+        health_controller.setMaxHealth(health);
+        health_controller.initializeHealth();
     }
 
     // get input
@@ -258,21 +262,5 @@ public class character_1 : MonoBehaviour
     {
         readyToShoot = true;
     }
-
-    private void increaseMaxHealth(int addToMaxHealth)
-    {
-        maxHealth += addToMaxHealth;
-    }
-
-    private void heal(int healthToHeal)
-    {
-        health += healthToHeal;
-
-        if (health > maxHealth)
-        {
-            health = maxHealth;
-        }
-        
-        // update UI
-    }
+    
 }
