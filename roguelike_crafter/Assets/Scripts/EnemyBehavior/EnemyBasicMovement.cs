@@ -14,12 +14,14 @@ public class EnemyBasicMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Vector3 movementDirection = Vector3.zero;
     private bool isChasing = false;
+    private bool isPatrol = false;
     
     [SerializeField] private float safetyDistance;
 
     private void Start()
     {
         InvokeRepeating("PerformDetection", 0, detectionDelay);
+        //StartCoroutine(IErandomDirection());
     }
 
     private void PerformDetection()
@@ -28,7 +30,6 @@ public class EnemyBasicMovement : MonoBehaviour
         {
             detector.Detect(enemyData);
         }
-
     }
 
     private void Update()
@@ -50,14 +51,20 @@ public class EnemyBasicMovement : MonoBehaviour
 
         //MoveFunction
         GetComponent<Rigidbody>().AddForce(movementDirection * speed * Time.deltaTime);
+
+        if(isPatrol)
+        {
+
+        }
     }
 
     private IEnumerator ChaseAndAttack()
     {
-        if(enemyData.currentTarget == null)
+        if(enemyData.currentTarget == null) // lost player
         {
             movementDirection = Vector3.zero;
             isChasing = false;
+            StartCoroutine(BackToPortal());
             yield break;
         }
         else
@@ -68,15 +75,59 @@ public class EnemyBasicMovement : MonoBehaviour
             {
                 movementDirection = Vector3.zero;
                 //Attack
+                //Debug.Log("GetYou");
+
                 yield return new WaitForSeconds(0.5f);
                 StartCoroutine(ChaseAndAttack());
             }
             else
             {
                 movementDirection = movementDirectionSolver.GetDirectionToMove(steeringBehaviors, enemyData);
+                //AddRandomDirection(ref movementDirection);
                 yield return new WaitForSeconds(aiUpdateDelay);
                 StartCoroutine(ChaseAndAttack());
             }
         }
     }
+
+    private void AddRandomDirection(ref Vector3 direction)
+    {
+        if(Vector3.Distance(transform.position, enemyData.currentTarget.position) <= safetyDistance)
+        {
+            //direction += RandomDirection.normalized;
+        }
+    }
+
+    IEnumerator BackToPortal()
+    {
+        float time = 0;
+        while(time <= 4)
+        {
+            if(enemyData.currentTarget != null)
+            {
+                break;
+            }
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        if(enemyData.currentTarget == null)
+        {
+            enemyData.currentTarget = GetComponentInParent<PatrolBehavior>().SearchPosition();
+        }
+
+        yield return null;
+
+    }
+
+    // IEnumerator IErandomDirection()
+    // {
+    //     // RandomDirection = transform.TransformPoint(Vector3.right) * UnityEngine.Random.Range(-1, 1);
+    //     // //Debug.Log(transform.right);
+    //     // yield return new WaitForSeconds(3f);
+    //     // if(isChasing)
+    //     // {
+    //     //     StartCoroutine(IErandomDirection());
+    //     // }
+    // }
 }

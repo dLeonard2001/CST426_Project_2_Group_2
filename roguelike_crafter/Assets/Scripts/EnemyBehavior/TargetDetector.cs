@@ -31,7 +31,9 @@ public class TargetDetector : Detector
         {
             //Enemy does not see the player
             colliders = null;
+            //colliders.Add(GetComponentInParent<PatrolBehavior>().SearchPosition());
         }
+
         enemyData.targets = colliders;
     }
 
