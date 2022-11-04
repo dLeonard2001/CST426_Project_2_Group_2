@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class healthController : MonoBehaviour
 {
@@ -10,10 +12,19 @@ public class healthController : MonoBehaviour
     public long health;
     private long maxHealth;
 
+    private long testDmg;
+
     [Header("Health UI")] 
     public Image hp_display;
     public TextMeshProUGUI amount_of_health;
 
+
+    private void Update()
+    {
+        testDmg = Random.Range(1, 21);
+        if(Input.GetKeyDown(KeyCode.K))
+            takeDamage(testDmg);
+    }
 
     public void setCurrentHealth(long health)
     {
@@ -45,7 +56,7 @@ public class healthController : MonoBehaviour
         {
             Death();
         }
-        
+
         // update UI
         updateUI();
     }
@@ -63,6 +74,6 @@ public class healthController : MonoBehaviour
     private void updateUI()
     {
         amount_of_health.text =  health + "/" + maxHealth;
-        hp_display.fillAmount = health/maxHealth;
+        hp_display.fillAmount = health/Mathf.Ceil(maxHealth);
     }
 }

@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using TMPro;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class character_1 : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class character_1 : MonoBehaviour
     [Header("Character Stats")] 
     public long health;
     public long base_damage;
+    
+    // have to calculate attack speed based on item effects
     public float attackSpeed;
     public float crit_chance;
     public float crit_damage;
@@ -23,15 +27,13 @@ public class character_1 : MonoBehaviour
     private Vector3 targetPos;
 
     [Header("Ability Config")] 
-    public float ability_1_cooldown;
-    public float ability_2_cooldown;
-    public float ability_3_cooldown;
-    public float ability_4_cooldown;
-    
-    private float ability_1_max_cooldown;
-    private float ability_2_max_cooldown;
-    private float ability_3_max_cooldown;
-    private float ability_4_max_cooldown;
+    public List<float> ability_cooldowns;
+    public List<Image> img_abilities;
+    public List<TextMeshProUGUI> cooldown_texts;
+    public List<CanvasGroup> canvasGroups;
+
+    private List<bool> ability_useAbility;
+    private List<bool> ability_OnCooldown;
 
     [Header("Player Forces")] 
     private float walk_speed;
@@ -61,7 +63,6 @@ public class character_1 : MonoBehaviour
     // player input
     private InputManager inputManager;
     
-    
     // player state
     private enum state
     {
@@ -72,34 +73,25 @@ public class character_1 : MonoBehaviour
     }
     private state player_movement_State;
     
-    // shooting logic
-        // vec3 v;
-        // ray.ViewPortRay(0.5, 0.5, 0);
-            // if(raycast)
-                // v = raycast.point;
-            // else 
-                // v = raycast.GetPoint(75);
-                
-            // get the direction to send our bullet
-                // c = b - a;
-                    // direction = v.position - barrel.position;
-                
-            // rotate bullet's transform to face forward
-                // bullet.transform.forward = direction.normalized;
-            // add force to bullet
-                // bullet.AddForce(direction.normalized * bulletspeed, impulse);
-    
     private void Start()
     {
         inputManager = InputManager.createInstance();
         player_movement_State = state.walking;
         slideTimer = maxSlideTime;
-        
-        // set character stats
-        // health = 100;
-        // attackSpeed = 2.5f;
-        // movement_speed = 5;
-        // luck = 0.5f;
+
+        ability_useAbility = new List<bool>();
+        ability_OnCooldown = new List<bool>();
+
+        for (int i = 0; i < canvasGroups.Count; i++)
+        {
+            ability_OnCooldown.Add(false);
+            ability_useAbility.Add(false);
+            
+            canvasGroups[i] = img_abilities[i].transform.GetComponent<CanvasGroup>();
+            cooldown_texts[i].text = ability_cooldowns[i].ToString();
+            cooldown_texts[i].gameObject.SetActive(false);
+            
+        }
 
         // set speeds based on player's movement speed
         walk_speed = movement_speed;
@@ -121,6 +113,17 @@ public class character_1 : MonoBehaviour
     // get input
     private void Update()
     {
+        if (inputManager.useAbility_1() && !ability_OnCooldown[0])
+            ability_useAbility[0] = true;
+        
+        if (inputManager.useAbility_2() && !ability_OnCooldown[1])
+            ability_useAbility[1] = true;
+        
+        if (inputManager.useAbility_3() && !ability_OnCooldown[2])
+            ability_useAbility[2] = true;
+        
+        if (inputManager.useAbility_4() && !ability_OnCooldown[3])
+            ability_useAbility[3] = true;
         
         if (inputManager.Jump())
         {
@@ -155,6 +158,7 @@ public class character_1 : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
         }
         HandleInput();
+        handleAbilitiesInput();
     }
 
     public void HandleInput()
@@ -262,5 +266,113 @@ public class character_1 : MonoBehaviour
     {
         readyToShoot = true;
     }
+
+    private void handleAbilitiesInput()
+    {
+        for (int i = 0; i < ability_useAbility.Count; i++)
+        {
+            if (ability_useAbility[i])
+            {
+                useAbility(i);
+                StartCoroutine(startCooldown(i));
+            }
+        }
+    }
+
+    private void useAbility(int i)
+    {
+        ability_useAbility[i] = false;
+        ability_OnCooldown[i] = true;
+
+        switch (i)
+        {
+            case 0:
+                performAbility_1();
+                break;
+            case 1:
+                performAbility_2();
+                break;
+            case 2:
+                performAbility_3();
+                break;
+            case 3:
+                performAbility_4();
+                break;
+        }
+    }
+
+    private void resetAbility(int i)
+    {
+        ability_OnCooldown[i] = false;
+        cooldown_texts[i].gameObject.SetActive(false);
+        canvasGroups[i].alpha = 1f;
+    }
+    
+    private IEnumerator startCooldown(int i)
+    {
+        cooldown_texts[i].gameObject.SetActive(true);
+        canvasGroups[i].alpha = 0.5f;
+        float cd = ability_cooldowns[i];
+        float seconds;
+        
+        while (cd > 0)
+        {
+            cd -= Time.deltaTime;
+            if (cd < 0)
+                cd = 0;
+            seconds = cd % 60;
+
+            cooldown_texts[i].text = string.Format("{0:00}", seconds.ToString("F1"));
+            
+            yield return null;
+        }
+        
+        resetAbility(i);
+    }
+
+    #region Abilities
+    
+    // passive ideas
+        // 1. free jetpack (for mobility)
+        // 2. Gain stacks per kill
+            // Each stack gives temporary movement speed and attack speed
+        private void passive()
+        {
+            
+        }
+
+        // shoots an underbarrel Gl (grenade launcher)
+            // maybe will have 3 charges to use?
+        private void performAbility_1()
+        {
+        
+        }
+    
+        // shoot a big cannon
+            // knocks enemies back
+            // knocks player back (for mobility purposes)
+                // player gets blasted in the opposite direction they are facing
+                    // looking forward
+                        // gets blasted backwards
+                    // looking down
+                        // gets blasted upwards 
+        private void performAbility_2()
+        {
+        
+        }
+        
+        // increase attack speed and damage for a certain duration
+        private void performAbility_3()
+        {
+        
+        }
+    
+        // no ideas, yet
+        private void performAbility_4()
+        {
+            
+        }
+    #endregion
+
     
 }
