@@ -7,7 +7,7 @@ public class projectile : MonoBehaviour
 {
     public float projectileSpeed;
     private long damage;
-    
+
     public void setDamage(long newDmg)
     {
         damage = newDmg;
@@ -21,7 +21,5 @@ public class projectile : MonoBehaviour
             other.transform.GetComponent<enemyHealth>().TakeDamage(damage);
             Destroy(gameObject);
         }
-
-        Destroy(gameObject, 5f);
     }
 }

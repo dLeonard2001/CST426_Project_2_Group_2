@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LV1 LandEscape
   - enemy
+  - item
   layers:
   - Default
   - TransparentFX

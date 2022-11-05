@@ -227,9 +227,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 1e49fbff
-      m_LastClickedID: -308962
-      m_ExpandedIDs: 3005fcff3a05fcff5006fcffe2faffffe6fafffff2faffff10fbffff4e6f0000606f00006a6f0000946f0000d06f0000e46f000024700000
+      m_SelectedIDs: ded5ffff
+      m_LastClickedID: -10786
+      m_ExpandedIDs: d0faffffdc6f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -505,9 +505,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 322.72748, y: 30.610123, z: -268.12866}
+    m_Target: {x: 2.4728425, y: 3.1541865, z: -1.5286666}
     speed: 2
-    m_Value: {x: 322.72748, y: 30.610123, z: -268.12866}
+    m_Value: {x: 2.4728425, y: 3.1541865, z: -1.5286666}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
         m_Value: 1
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
-      m_Size: {x: 1, y: 1}
+      m_Size: {x: 0.5, y: 0.5}
     zGrid:
       m_Fade:
         m_Target: 0
@@ -554,13 +554,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.0056876503, y: 0.03211591, z: 0.00018863005, w: 0.99949735}
+    m_Target: {x: -0.25528878, y: 0.2825743, z: -0.07830357, w: -0.9213235}
     speed: 2
-    m_Value: {x: 0.00568765, y: -0.03211591, z: -0.00018863003, w: -0.9994973}
+    m_Value: {x: -0.25528878, y: 0.2825743, z: -0.07830357, w: -0.9213235}
   m_Size:
-    m_Target: 1.2477003
+    m_Target: 0.8660254
     speed: 2
-    m_Value: 1.2477003
+    m_Value: 0.8660254
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -635,7 +635,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 37446
+  controlID: 358
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -704,22 +704,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Prefabs/Player
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Prefabs/Player
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\leona\OneDrive\Desktop\CST426_Project_2_Group_2\roguelike_crafter
+  m_LastProjectPath: C:\Users\leona\Desktop\CST426_Project_2_Group_2\roguelike_crafter
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 57}
-    m_SelectedIDs: d6720000
-    m_LastClickedID: 29398
-    m_ExpandedIDs: 00000000ba720000bc720000be720000c072000000ca9a3b
+    m_SelectedIDs: 5e760000
+    m_LastClickedID: 30302
+    m_ExpandedIDs: 000000003a7300004c73000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -747,7 +747,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ba720000bc720000be720000c072000000ca9a3b
+    m_ExpandedIDs: 000000003a73000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -772,9 +772,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 1e49fbff
-    m_LastClickedInstanceID: -308962
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: ded5ffff
+    m_LastClickedInstanceID: -10786
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c623000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -920,7 +920,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 261
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

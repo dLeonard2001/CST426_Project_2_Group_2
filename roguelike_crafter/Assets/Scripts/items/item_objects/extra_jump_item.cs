@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lootTable : MonoBehaviour
+public class extra_jump_item : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
