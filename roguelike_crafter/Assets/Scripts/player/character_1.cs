@@ -133,6 +133,12 @@ public class character_1 : MonoBehaviour
     // get input
     private void Update()
     {
+        // if (Input.GetKeyDown(KeyCode.LeftAlt))
+        // {
+        //     Cursor.visible = true;
+        //     Cursor.lockState = CursorLockMode.Confined;
+        // }
+        
         if (inputManager.useAbility_1() && !ability_OnCooldown[0])
             ability_useAbility[0] = true;
         
