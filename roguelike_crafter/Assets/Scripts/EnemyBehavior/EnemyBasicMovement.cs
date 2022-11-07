@@ -15,13 +15,19 @@ public class EnemyBasicMovement : MonoBehaviour
     [SerializeField] private Vector3 movementDirection = Vector3.zero;
     private bool isChasing = false;
     private bool isPatrol = false;
-    
     [SerializeField] private float safetyDistance;
-
+    [SerializeField] private GameObject patrol;
+    
+    public bool needPatrol = false;
+    
     private void Start()
     {
         InvokeRepeating("PerformDetection", 0, detectionDelay);
         //StartCoroutine(IErandomDirection());
+        if(needPatrol)
+        {
+            patrol.SetActive(true);
+        }
     }
 
     private void PerformDetection()
@@ -74,8 +80,8 @@ public class EnemyBasicMovement : MonoBehaviour
             if(distance < safetyDistance)
             {
                 movementDirection = Vector3.zero;
-                //Attack
-                //Debug.Log("GetYou");
+
+                Attack();
 
                 yield return new WaitForSeconds(0.5f);
                 StartCoroutine(ChaseAndAttack());
@@ -111,7 +117,7 @@ public class EnemyBasicMovement : MonoBehaviour
             yield return null;
         }
 
-        if(enemyData.currentTarget == null)
+        if(enemyData.currentTarget == null && needPatrol)
         {
             enemyData.currentTarget = GetComponentInParent<PatrolBehavior>().SearchPosition();
         }
@@ -120,14 +126,9 @@ public class EnemyBasicMovement : MonoBehaviour
 
     }
 
-    // IEnumerator IErandomDirection()
-    // {
-    //     // RandomDirection = transform.TransformPoint(Vector3.right) * UnityEngine.Random.Range(-1, 1);
-    //     // //Debug.Log(transform.right);
-    //     // yield return new WaitForSeconds(3f);
-    //     // if(isChasing)
-    //     // {
-    //     //     StartCoroutine(IErandomDirection());
-    //     // }
-    // }
+    private void Attack()
+    {
+        GetComponent<EnemyCombat>().Attack();
+    }
+
 }

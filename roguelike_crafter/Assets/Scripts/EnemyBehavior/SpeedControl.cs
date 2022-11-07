@@ -6,7 +6,6 @@ public class SpeedControl : MonoBehaviour
 {
     private Rigidbody rb;
     private bool startFalling = true;
-    public LayerMask layer;
     public PatrolBehavior patrol;
 
     private void Start()
@@ -31,7 +30,7 @@ public class SpeedControl : MonoBehaviour
     {
         startFalling = false;
         GetComponent<BoxCollider>().isTrigger = true;
-        gameObject.layer = LayerMask.NameToLayer("Player");
+        gameObject.layer = LayerMask.NameToLayer("Target");
         rb.constraints = RigidbodyConstraints.FreezeAll;
         StartCoroutine(ChangeLayer());
     }

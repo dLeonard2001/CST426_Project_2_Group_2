@@ -11,11 +11,12 @@ public class TargetDetector : Detector
     public override void Detect(EnemyData enemyData)
     {
         Collider[] playerCollider = Physics.OverlapSphere(transform.position, targetDetectionRange, playerLayer);
+
         if (playerCollider.Length > 0)
         {
             Vector3 direction = (playerCollider[0].transform.position - transform.position).normalized;
             RaycastHit hit;
-            Physics.Raycast(transform.position, direction, out hit, targetDetectionRange, obstacleLayer);
+            Physics.Raycast(transform.position, direction, out hit, targetDetectionRange);
 
             if (hit.collider != null && (playerLayer & (1 << hit.collider.gameObject.layer)) != 0)
             {
@@ -33,7 +34,7 @@ public class TargetDetector : Detector
             colliders = null;
             //colliders.Add(GetComponentInParent<PatrolBehavior>().SearchPosition());
         }
-
+        //Debug.Log("Run");
         enemyData.targets = colliders;
     }
 
