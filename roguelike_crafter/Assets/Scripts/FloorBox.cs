@@ -10,7 +10,7 @@ public class FloorBox : MonoBehaviour
         if (other.gameObject.layer == 3) // layer 3 is ground
         {
             Debug.Log("I hit the ground");
-            player.gravityReset();
+            //player.gravityReset();
         }
     }
 }
