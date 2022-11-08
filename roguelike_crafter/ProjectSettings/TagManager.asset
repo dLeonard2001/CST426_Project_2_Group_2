@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - Enemy
   - LV1 LandEscape
+  - enemy
+  - item
   - TPA
   - TPB
   layers:
@@ -16,7 +18,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - whatIsGround
   - 
   - 
   - 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1026868335539053348}
   - component: {fileID: 1026868335539053350}
   - component: {fileID: 1026868335539053351}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_(-1000.00, 0.00, 0.00)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1026868336586053489}
   - component: {fileID: 1026868336586053494}
   - component: {fileID: 1026868336586053495}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_(1000.00, 0.00, 0.00)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 1026868336690066838}
   - component: {fileID: 1026868336690066839}
   - component: {fileID: 1026868336690066836}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LV1 Bridges - no CB
   m_TagString: LV1 LandEscape
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 1026868337211572154}
   - component: {fileID: 1026868337211572155}
   - component: {fileID: 1026868337211572152}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_(0.00, 0.00, 1000.00)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 1026868337330975747}
   - component: {fileID: 1026868337330975744}
   - component: {fileID: 1026868337330975745}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_(0.00, 0.00, -1000.00)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
