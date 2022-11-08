@@ -22,7 +22,7 @@ public class healthController : MonoBehaviour
 
     private void Update()
     {
-        testDmg = Random.Range(1, 21);
+        testDmg = Random.Range(0, 21);
         if(Input.GetKeyDown(KeyCode.K))
             takeDamage(testDmg);
     }

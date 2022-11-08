@@ -11,7 +11,7 @@ public class character_1 : MonoBehaviour
 {
     [Header("Character Stats")] 
     public long health;
-    public long base_damage;
+    public long damage;
     
     // have to calculate attack speed based on item effects
     public float attackSpeed;
@@ -22,6 +22,7 @@ public class character_1 : MonoBehaviour
     public float luck;
 
     private float base_movement_speed;
+    private long base_damage;
     private List<int> stat_id;
     private int amt_of_stats;
     // access a stat correlated to its stat id 
@@ -41,13 +42,18 @@ public class character_1 : MonoBehaviour
     private Vector3 targetPos;
 
     [Header("Ability Config")] 
+    public int ability_1_charges;
     public List<float> ability_cooldowns;
     public List<Image> img_abilities;
     public List<TextMeshProUGUI> cooldown_texts;
     public List<CanvasGroup> canvasGroups;
+    public TextMeshProUGUI charge_count;
 
     private List<bool> ability_useAbility;
     private List<bool> ability_OnCooldown;
+    private int maxCharges;
+    private float current_charge_cd;
+    private bool cr_active;
 
     [Header("Player Forces")] 
     private float walk_speed;
@@ -109,6 +115,9 @@ public class character_1 : MonoBehaviour
         
         ability_useAbility = new List<bool>();
         ability_OnCooldown = new List<bool>();
+        
+        maxCharges = ability_1_charges;
+        charge_count.text = maxCharges.ToString();
 
         for (int i = 0; i < canvasGroups.Count; i++)
         {
@@ -170,6 +179,10 @@ public class character_1 : MonoBehaviour
         {
             amt_of_jumps = maxAmount_of_jumps;
         }
+
+        if (ability_1_charges < maxCharges && !cr_active)
+            StartCoroutine(gainCharges(0));
+            // start gaining a charge
 
         // Debug.DrawRay(transform.position, Vector3.down * 3, Color.red);
     }
@@ -291,18 +304,18 @@ public class character_1 : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * proj_script.projectileSpeed, ForceMode.Impulse);
         bullet.GetComponent<projectile>().setDamage(calculateDamage());
         
-        Invoke(nameof(resetShoot), 0.25f);
+        Invoke(nameof(resetShoot), attackSpeed);
     }
 
     public long calculateDamage()
     {
 
-        long final_damage = base_damage;
+        long final_damage = damage;
         
         float crit_percent = Random.Range(0, 101);
         if (crit_percent < crit_chance)
         {
-            final_damage = Convert.ToInt64(base_damage * crit_damage);
+            final_damage = Convert.ToInt64(damage * crit_damage);
         }
         
         return final_damage;
@@ -320,7 +333,20 @@ public class character_1 : MonoBehaviour
             if (ability_useAbility[i])
             {
                 useAbility(i);
-                StartCoroutine(startCooldown(i));
+                if (i == 0)
+                {
+                    if (ability_1_charges <= 0)
+                    {
+                        // Debug.Log("out of charges");
+                        StartCoroutine(startCooldown(i));
+                    }
+                        
+                }
+                else
+                {
+                    StartCoroutine(startCooldown(i));
+                }
+                
             }
         }
     }
@@ -356,14 +382,30 @@ public class character_1 : MonoBehaviour
     
     private IEnumerator startCooldown(int i)
     {
-        cooldown_texts[i].gameObject.SetActive(true);
-        canvasGroups[i].alpha = 0.5f;
-        float cd = ability_cooldowns[i];
+        float cd;
+
+        if (i == 0)
+        {
+            cooldown_texts[i].gameObject.SetActive(true);
+            canvasGroups[i].alpha = 0.5f;
+            cd = current_charge_cd;
+        }
+        else
+        {
+            cooldown_texts[i].gameObject.SetActive(true);
+            canvasGroups[i].alpha = 0.5f;
+            cd = ability_cooldowns[i];
+        }
+        
         float seconds;
         
         while (cd > 0)
         {
-            cd -= Time.deltaTime;
+            if(i != 0)
+                cd -= Time.deltaTime;
+            else
+                cd = current_charge_cd;
+            
             if (cd < 0)
                 cd = 0;
             seconds = cd % 60;
@@ -384,7 +426,7 @@ public class character_1 : MonoBehaviour
                 health = Convert.ToInt64(statToAdd);
                 break;
             case 1: // base damage
-                base_damage = Convert.ToInt64(statToAdd);
+                damage = Convert.ToInt64(base_damage * statToAdd);
                 break;
             case 2: // attackSpeed
                 attackSpeed += statToAdd;
@@ -420,24 +462,57 @@ public class character_1 : MonoBehaviour
         slideForce = movement_speed * 2.25f;
     }
 
+    private IEnumerator gainCharges(int i)
+    {
+        cr_active = true;
+        
+        current_charge_cd = ability_cooldowns[i];
+        while (current_charge_cd > 0)
+        {
+            current_charge_cd -= Time.deltaTime;
+            yield return null;
+        }
+
+        ability_1_charges++;
+        cr_active = false;
+        charge_count.text = ability_1_charges.ToString();
+    }
+
     #region Abilities
     
     // passive ideas
         // 1. free jetpack (for mobility)
         // 2. Gain stacks per kill
             // Each stack gives temporary movement speed and attack speed
-        private void passive()
+
+        // add a stack when the player gets a kill
+        public void addPassiveStack()
         {
             
         }
+        
+        // lose a stack over a certain amount of time
+
 
         // shoots an underbarrel Gl (grenade launcher)
-            // maybe will have 3 charges to use?
+            // will have 3 charges to use?
         private void performAbility_1()
         {
-        
+            if (ability_1_charges == 0)
+            {
+                Debug.Log("no charges to use");
+            }
+            else
+            {
+                ability_1_charges--;
+                charge_count.text = ability_1_charges.ToString();
+            
+                Debug.Log("using a GL");
+            }
+            
+            resetAbility(0);
         }
-    
+
         // shoot a big cannon
             // knocks enemies back
             // knocks player back (for mobility purposes)
