@@ -99,14 +99,14 @@ public class InputManager : MonoBehaviour
         return playerControls.player.Ability_4.WasPressedThisFrame();
     }
     
-    public bool useAbility_5()
-    {
-        return playerControls.player.Ability_5.WasPressedThisFrame();
-    }
-
     public bool Attack()
     {
         return playerControls.player.attack.IsPressed();
+    }
+
+    public bool unlock_mouse()
+    {
+        return playerControls.player.unlock_mouse.WasPressedThisFrame();
     }
 
 }

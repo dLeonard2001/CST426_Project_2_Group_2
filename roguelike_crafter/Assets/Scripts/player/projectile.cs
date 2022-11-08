@@ -1,12 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class projectile : MonoBehaviour
 {
     public float projectileSpeed;
     private long damage;
+
+    private void Start()
+    {
+        Destroy(gameObject, 10f);
+    }
 
     public void setDamage(long newDmg)
     {
@@ -19,7 +21,7 @@ public class projectile : MonoBehaviour
         {
             // Debug.Log(damage);
             other.transform.GetComponent<enemyHealth>().TakeDamage(damage);
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 }

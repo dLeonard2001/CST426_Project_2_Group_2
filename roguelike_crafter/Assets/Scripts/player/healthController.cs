@@ -10,6 +10,7 @@ public class healthController : MonoBehaviour
 {
     [Header("Health")]
     public long health;
+    public float armor;
     private long maxHealth;
 
     private long testDmg;
@@ -33,6 +34,11 @@ public class healthController : MonoBehaviour
     public void setMaxHealth(long maxHealth)
     {
         this.maxHealth = maxHealth;
+    }
+
+    public void setCurrentArmor(float newArmor)
+    {
+        armor = newArmor;
     }
 
     public void heal(long hpToHeal)

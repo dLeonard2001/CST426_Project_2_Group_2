@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +16,13 @@ public class inventoryController : MonoBehaviour
     private float x_pos_buffer;
     private float y_pos_buffer;
 
+    private List<Image> images;
+
     // Start is called before the first frame update
     void Start()
     {
+        images = new List<Image>();
+        
         player = GetComponent<character_1>();
         inventory = new Hashtable();
 
@@ -29,7 +33,7 @@ public class inventoryController : MonoBehaviour
         y_pos_buffer = -60;
     }
 
-    private void addItem(int item_id, int statToUpdate, float statToAdd, Sprite item_image, string description)
+    private void addItem(item_id item_object)
     {
         
         // general gist of how an item will be added
@@ -40,43 +44,59 @@ public class inventoryController : MonoBehaviour
                 // add a stack to that item
         try
         {
-            Debug.Log("adding item...");
-            inventory.Add(item_id, 1);
+            //Debug.Log("adding item...");
+            
+            inventory.Add(item_object.id, 1);
 
             Image newImage = Instantiate(itemDisplay, canvas);
+            images.Add(newImage);
+
+            display tempDisplay = newImage.GetComponent<display>();
+
+            //Debug.Log(x_pos);
             
             newImage.rectTransform.localPosition = new Vector3(x_pos, y_pos, 0f);
-            newImage.sprite = item_image;
-            newImage.GetComponent<display>().setDescription(description);
-            newImage.gameObject.SetActive(true);
-            
+            newImage.sprite = item_object.item_image;
+            tempDisplay.setDescription(item_object.item_name, item_object.description);
+            tempDisplay.item_id = item_object.id;
+            tempDisplay.gameObject.SetActive(true);
+
             x_pos += x_pos_buffer;
+            //Debug.Log(x_pos + " should be changed");
             
-            player.updateStat(statToUpdate, statToAdd);
+            player.updateStat(item_object.statToChange, item_object.statToAdd);
         }
         catch
         {
-            player.updateStat(statToUpdate, statToAdd);
+            player.updateStat(item_object.statToChange, item_object.statToAdd);
+            inventory[item_object.id] = (int) inventory[item_object.id] + 1;
+
+            display tempDisplay;
+            foreach (var v in images)
+            {
+                tempDisplay = v.GetComponent<display>();
+                if (tempDisplay.item_id == item_object.id)
+                {
+                    tempDisplay.item_count.text = "x" + (int) inventory[item_object.id];
+                    tempDisplay.item_count.gameObject.SetActive(true);
+                    break;
+                }
+            }
+            
+            Debug.Log(inventory[item_object.id]);
             
             // update item counter on UI
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("item"))
         {
-            other.isTrigger = false;
-            
             // Debug.Log(other.GetComponent<item_id>().getItemId());
             item_id item_obj = other.GetComponent<item_id>();
-            int id = item_obj.id;
-            int statToAddChange = item_obj.statToChange;
-            float statToAdd = item_obj.statToAdd;
-            string description = item_obj.description;
-            Sprite item_image = item_obj.item_image;
-            
-            addItem(id, statToAddChange, statToAdd, item_image, description);
+
+            addItem(item_obj);
             Destroy(other.gameObject);
         }
     }

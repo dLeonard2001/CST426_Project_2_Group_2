@@ -127,15 +127,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability_5"",
-                    ""type"": ""Button"",
-                    ""id"": ""5044c61d-fe15-4394-b316-4f1aa3babe81"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""use_item"",
                     ""type"": ""Button"",
                     ""id"": ""8f9c257e-bc0b-4e7f-a148-0687f82d3d07"",
@@ -161,6 +152,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""unlock_mouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""d7209e25-3932-44ff-b3a4-3da4db54d16d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -254,17 +254,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8d34e207-38da-4b27-9abd-42423e571f24"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Ability_5"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""916e9f14-1264-4861-9c05-be9f11fba753"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
@@ -328,6 +317,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d89ec60-e8a9-477a-a518-f79a6c404661"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""unlock_mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -347,10 +347,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_player_Ability_2 = m_player.FindAction("Ability_2", throwIfNotFound: true);
         m_player_Ability_3 = m_player.FindAction("Ability_3", throwIfNotFound: true);
         m_player_Ability_4 = m_player.FindAction("Ability_4", throwIfNotFound: true);
-        m_player_Ability_5 = m_player.FindAction("Ability_5", throwIfNotFound: true);
         m_player_use_item = m_player.FindAction("use_item", throwIfNotFound: true);
         m_player_attack = m_player.FindAction("attack", throwIfNotFound: true);
         m_player_look = m_player.FindAction("look", throwIfNotFound: true);
+        m_player_unlock_mouse = m_player.FindAction("unlock_mouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -421,10 +421,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_player_Ability_2;
     private readonly InputAction m_player_Ability_3;
     private readonly InputAction m_player_Ability_4;
-    private readonly InputAction m_player_Ability_5;
     private readonly InputAction m_player_use_item;
     private readonly InputAction m_player_attack;
     private readonly InputAction m_player_look;
+    private readonly InputAction m_player_unlock_mouse;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -440,10 +440,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Ability_2 => m_Wrapper.m_player_Ability_2;
         public InputAction @Ability_3 => m_Wrapper.m_player_Ability_3;
         public InputAction @Ability_4 => m_Wrapper.m_player_Ability_4;
-        public InputAction @Ability_5 => m_Wrapper.m_player_Ability_5;
         public InputAction @use_item => m_Wrapper.m_player_use_item;
         public InputAction @attack => m_Wrapper.m_player_attack;
         public InputAction @look => m_Wrapper.m_player_look;
+        public InputAction @unlock_mouse => m_Wrapper.m_player_unlock_mouse;
         public InputActionMap Get() { return m_Wrapper.m_player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -486,9 +486,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Ability_4.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility_4;
                 @Ability_4.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility_4;
                 @Ability_4.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility_4;
-                @Ability_5.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility_5;
-                @Ability_5.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility_5;
-                @Ability_5.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility_5;
                 @use_item.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse_item;
                 @use_item.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse_item;
                 @use_item.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse_item;
@@ -498,6 +495,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @unlock_mouse.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlock_mouse;
+                @unlock_mouse.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlock_mouse;
+                @unlock_mouse.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlock_mouse;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -535,9 +535,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Ability_4.started += instance.OnAbility_4;
                 @Ability_4.performed += instance.OnAbility_4;
                 @Ability_4.canceled += instance.OnAbility_4;
-                @Ability_5.started += instance.OnAbility_5;
-                @Ability_5.performed += instance.OnAbility_5;
-                @Ability_5.canceled += instance.OnAbility_5;
                 @use_item.started += instance.OnUse_item;
                 @use_item.performed += instance.OnUse_item;
                 @use_item.canceled += instance.OnUse_item;
@@ -547,6 +544,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @look.started += instance.OnLook;
                 @look.performed += instance.OnLook;
                 @look.canceled += instance.OnLook;
+                @unlock_mouse.started += instance.OnUnlock_mouse;
+                @unlock_mouse.performed += instance.OnUnlock_mouse;
+                @unlock_mouse.canceled += instance.OnUnlock_mouse;
             }
         }
     }
@@ -564,9 +564,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAbility_2(InputAction.CallbackContext context);
         void OnAbility_3(InputAction.CallbackContext context);
         void OnAbility_4(InputAction.CallbackContext context);
-        void OnAbility_5(InputAction.CallbackContext context);
         void OnUse_item(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnUnlock_mouse(InputAction.CallbackContext context);
     }
 }

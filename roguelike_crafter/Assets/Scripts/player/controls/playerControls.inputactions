@@ -105,15 +105,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ability_5",
-                    "type": "Button",
-                    "id": "5044c61d-fe15-4394-b316-4f1aa3babe81",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "use_item",
                     "type": "Button",
                     "id": "8f9c257e-bc0b-4e7f-a148-0687f82d3d07",
@@ -139,6 +130,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "unlock_mouse",
+                    "type": "Button",
+                    "id": "d7209e25-3932-44ff-b3a4-3da4db54d16d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -232,17 +232,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8d34e207-38da-4b27-9abd-42423e571f24",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Ability_5",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "916e9f14-1264-4861-9c05-be9f11fba753",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -304,6 +293,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d89ec60-e8a9-477a-a518-f79a6c404661",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "unlock_mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

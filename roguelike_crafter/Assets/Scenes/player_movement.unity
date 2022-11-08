@@ -159,7 +159,8 @@ MonoBehaviour:
   id: 1
   statToChange: 8
   statToAdd: 0
-  description: Gain an extra jump
+  item_name: <color=#FF0000>Feather Boots</color>
+  description: <color=#0AFF00>Gain</color> an extra jump
 --- !u!135 &45319843
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -231,7 +232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45319840}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2438476, y: -0.43866426, z: 10.426474}
+  m_LocalPosition: {x: 1.2438476, y: -0.72999996, z: 10.426474}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -352,7 +353,8 @@ MonoBehaviour:
   id: 2
   statToChange: 5
   statToAdd: 0.05
-  description: Increase movement speed by 5%
+  item_name: <color=#FF0000>Lightweight Shoes</color>
+  description: <color=#0AFF00>Increase</color> movement speed by <color=#0AFF00>5%</color>
 --- !u!136 &158943506
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -425,7 +427,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158943503}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.326153, y: -0.39866424, z: 15.526474}
+  m_LocalPosition: {x: -4.326153, y: -0.68999994, z: 15.526474}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -759,6 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  armor: 0
   hp_display: {fileID: 271299914}
   amount_of_health: {fileID: 509266311}
 --- !u!114 &254992064
@@ -774,7 +777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 231968126}
-  itemDisplay: {fileID: 4236552417954977573, guid: 1ccd3d2d9c8c7294aa82bad4d536c83e,
+  itemDisplay: {fileID: 7030667828860300727, guid: 1ccd3d2d9c8c7294aa82bad4d536c83e,
     type: 3}
 --- !u!1 &271299912
 GameObject:
@@ -904,7 +907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5943396, g: 0.56350124, b: 0.56350124, a: 1}
+  m_Color: {r: 0.56587243, g: 0.59607846, b: 0.5647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1344,9 +1347,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
         type: 3}
+      propertyPath: luck
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
       propertyPath: barrel
       value: 
       objectReference: {fileID: 1697473963}
+    - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
+      propertyPath: observer
+      value: 
+      objectReference: {fileID: 1483762168}
     - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
         type: 3}
       propertyPath: projectile
@@ -1839,12 +1852,12 @@ GameObject:
   m_Component:
   - component: {fileID: 571397373}
   m_Layer: 0
-  m_Name: items
+  m_Name: items_to_pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &571397373
 Transform:
   m_ObjectHideFlags: 0
@@ -1978,6 +1991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  manager: {fileID: 1483762168}
 --- !u!136 &654088052
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2186,8 +2200,9 @@ MonoBehaviour:
   item_image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   id: 1
   statToChange: 8
-  statToAdd: 1
-  description: Gain an extra jump
+  statToAdd: 0
+  item_name: <color=#FF0000>Feather Boots</color>
+  description: <color=#0AFF00>Gain</color> an extra jump
 --- !u!135 &733832554
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2259,7 +2274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733832551}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.3661523, y: -0.43866426, z: 10.426474}
+  m_LocalPosition: {x: -4.3661523, y: -0.72999996, z: 10.426474}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2378,7 +2393,8 @@ MonoBehaviour:
   id: 2
   statToChange: 5
   statToAdd: 0.05
-  description: Increase movement speed by 5%
+  item_name: <color=#FF0000>Lightweight Shoes</color>
+  description: <color=#0AFF00>Increase</color> movement speed by <color=#0AFF00>5%</color>
 --- !u!136 &986625814
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2451,7 +2467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986625811}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2838476, y: -0.39866424, z: 15.526474}
+  m_LocalPosition: {x: 1.2838476, y: -0.68999994, z: 15.526474}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2627,6 +2643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  manager: {fileID: 1483762168}
 --- !u!136 &1194470173
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2847,7 +2864,8 @@ MonoBehaviour:
   id: 0
   statToChange: 3
   statToAdd: 5
-  description: Increase Crit Chance by 5%
+  item_name: <color=#FF0000>Crit Glasses</color>
+  description: <color=#0AFF00>Increase</color> Crit Chance by <color=#FF0000>5%</color>
 --- !u!65 &1360930341
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2919,7 +2937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360930338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5536385, y: -0.4086643, z: 13.256474}
+  m_LocalPosition: {x: -4.5536385, y: -0.7, z: 13.256474}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3087,6 +3105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  manager: {fileID: 1483762168}
 --- !u!136 &1396308213
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3212,10 +3231,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478b06cb957633d4f85daee4d8c115ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  all_item_ids: []
+  item_objects:
+  - {fileID: 2020481603}
+  - {fileID: 45319840}
+  - {fileID: 986625811}
   enemyDeathEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1483762168}
+        m_TargetAssemblyTypeName: Observer, Assembly-CSharp
+        m_MethodName: spawnItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1483762169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4371,7 +4405,8 @@ MonoBehaviour:
   id: 0
   statToChange: 3
   statToAdd: 5
-  description: Increase Crit Chance by 5%
+  item_name: <color=#FF0000>Crit Glasses</color>
+  description: <color=#0AFF00>Increase</color> Crit Chance by <color=#FF0000>5%</color>
 --- !u!65 &2020481606
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4443,7 +4478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020481603}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0563617, y: -0.4086643, z: 13.256474}
+  m_LocalPosition: {x: 1.0563617, y: -0.7, z: 13.256474}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

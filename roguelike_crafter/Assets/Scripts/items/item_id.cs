@@ -18,5 +18,6 @@ public class item_id : MonoBehaviour
              "7 = luck \n" +
              "8 = jump")] public int statToChange;
     public float statToAdd;
+    public string item_name;
     public string description;
 }

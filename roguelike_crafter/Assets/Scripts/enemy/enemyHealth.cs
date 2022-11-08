@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class enemyHealth : MonoBehaviour
 {
-    
-    
     public long health;
+    public Observer manager;
 
     public void TakeDamage(long damageToInflict)
     {
@@ -14,6 +11,7 @@ public class enemyHealth : MonoBehaviour
 
         if (health <= 0)
         {
+            manager.enemyHasDied(transform.position);
             Destroy(gameObject);
         }
         

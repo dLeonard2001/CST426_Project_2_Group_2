@@ -21,9 +21,10 @@ public class character_1 : MonoBehaviour
     public float armor;
     public float luck;
 
+    private float base_movement_speed;
     private List<int> stat_id;
     private int amt_of_stats;
-    // access a stat correlated to its stat
+    // access a stat correlated to its stat id 
         // 0 = health;
         // 1 = base_damage;
         // 2 = attackSpeed;
@@ -66,6 +67,7 @@ public class character_1 : MonoBehaviour
     [Header("References/Components")] 
     public GameObject projectile;
     public Transform barrel;
+    public Observer observer;
 
     private projectile proj_script;
     
@@ -116,11 +118,13 @@ public class character_1 : MonoBehaviour
             canvasGroups[i] = img_abilities[i].transform.GetComponent<CanvasGroup>();
             cooldown_texts[i].text = ability_cooldowns[i].ToString();
             cooldown_texts[i].gameObject.SetActive(false);
-            
         }
+        
+        observer.setCurrentLuck(luck);
 
         // set speeds based on player's movement speed
         updateMovementSpeed();
+        base_movement_speed = movement_speed;
 
         readyToShoot = true;
         
@@ -128,16 +132,22 @@ public class character_1 : MonoBehaviour
         health_controller.setCurrentHealth(health);
         health_controller.setMaxHealth(health);
         health_controller.initializeHealth();
+        health_controller.setCurrentArmor(armor);
     }
 
     // get input
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.LeftAlt))
-        // {
-        //     Cursor.visible = true;
-        //     Cursor.lockState = CursorLockMode.Confined;
-        // }
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && !Cursor.visible)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftAlt) && Cursor.visible)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         
         if (inputManager.useAbility_1() && !ability_OnCooldown[0])
             ability_useAbility[0] = true;
@@ -386,7 +396,7 @@ public class character_1 : MonoBehaviour
                 crit_damage += statToAdd;
                 break;
             case 5: // movement speed
-                movement_speed += movement_speed * statToAdd;
+                movement_speed += base_movement_speed * statToAdd;
                 updateMovementSpeed();
                 break;
             case 6: // armor
@@ -394,6 +404,7 @@ public class character_1 : MonoBehaviour
                 break;
             case 7: // luck
                 luck += statToAdd;
+                observer.setCurrentLuck(luck);
                 break;
             case 8: // add an extra jump
                 maxAmount_of_jumps++;
