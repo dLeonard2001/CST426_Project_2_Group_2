@@ -4,6 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Wall
+  - Enemy
   - LV1 LandEscape
   layers:
   - Default
@@ -17,9 +19,9 @@ TagManager:
   - 
   - 
   - 
+  - Obstacle
   - 
-  - 
-  - 
+  - Target
   - 
   - 
   - 
