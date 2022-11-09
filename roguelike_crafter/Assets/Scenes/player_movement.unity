@@ -779,6 +779,18 @@ MonoBehaviour:
   canvas: {fileID: 231968126}
   itemDisplay: {fileID: 7030667828860300727, guid: 1ccd3d2d9c8c7294aa82bad4d536c83e,
     type: 3}
+--- !u!114 &254992065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+    type: 3}
+  m_PrefabInstance: {fileID: 443956175}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254992059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4d3e1f1eaecc24faa4b91faa4c0233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &271299912
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,11 +825,11 @@ RectTransform:
   m_Father: {fileID: 231968126}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -500, y: -455.44}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 173.20001, y: 54.62}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &271299914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1357,6 +1369,11 @@ PrefabInstance:
       objectReference: {fileID: 1697473963}
     - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
         type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
       propertyPath: observer
       value: 
       objectReference: {fileID: 1483762168}
@@ -1366,6 +1383,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8219499313737108697, guid: b2dd951bd16e8394d9709b53e06ca0e4,
         type: 3}
+    - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
+      propertyPath: attackSpeed
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
         type: 3}
       propertyPath: crit_chance
@@ -1381,6 +1403,16 @@ PrefabInstance:
       propertyPath: charge_count
       value: 
       objectReference: {fileID: 1621672023}
+    - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
+      propertyPath: AS_each_stack
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
+      propertyPath: MS_each_stack
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
         type: 3}
       propertyPath: img_ability_1
@@ -1421,6 +1453,11 @@ PrefabInstance:
       propertyPath: cooldown_text_4
       value: 
       objectReference: {fileID: 417458097}
+    - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
+      propertyPath: knockBack_force
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7150782002874938950, guid: 1f082bcc34b33174fab4e1a4a18f3742,
         type: 3}
       propertyPath: attackPosition.y
@@ -1718,7 +1755,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25.6, y: 0}
+  m_AnchoredPosition: {x: 25.599976, y: 0}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509266311
@@ -3251,6 +3288,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1483762168}
         m_TargetAssemblyTypeName: Observer, Assembly-CSharp
         m_MethodName: spawnItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 254992065}
+        m_TargetAssemblyTypeName: character_1, Assembly-CSharp
+        m_MethodName: addPassiveStack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

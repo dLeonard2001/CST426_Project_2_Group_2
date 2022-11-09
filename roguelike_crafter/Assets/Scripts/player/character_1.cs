@@ -21,10 +21,15 @@ public class character_1 : MonoBehaviour
     public float armor;
     public float luck;
 
+    public float MS_each_stack;
+    public float AS_each_stack;
     private float base_movement_speed;
     private long base_damage;
+    private float base_attack_speed;
     private List<int> stat_id;
     private int amt_of_stats;
+    private int passiveStacks;
+    
     // access a stat correlated to its stat id 
         // 0 = health;
         // 1 = base_damage;
@@ -43,6 +48,7 @@ public class character_1 : MonoBehaviour
 
     [Header("Ability Config")] 
     public int ability_1_charges;
+    public int knockBack_force;
     public List<float> ability_cooldowns;
     public List<Image> img_abilities;
     public List<TextMeshProUGUI> cooldown_texts;
@@ -53,7 +59,8 @@ public class character_1 : MonoBehaviour
     private List<bool> ability_OnCooldown;
     private int maxCharges;
     private float current_charge_cd;
-    private bool cr_active;
+    private bool charge_cr_active;
+    private bool passive_cr_active;
 
     [Header("Player Forces")] 
     private float walk_speed;
@@ -104,6 +111,10 @@ public class character_1 : MonoBehaviour
         {
             stat_id.Add(i);
         }
+
+        passiveStacks = 0;
+        base_attack_speed = attackSpeed;
+        base_damage = damage;
         
         inputManager = InputManager.createInstance();
         
@@ -132,8 +143,9 @@ public class character_1 : MonoBehaviour
         observer.setCurrentLuck(luck);
 
         // set speeds based on player's movement speed
-        updateMovementSpeed();
         base_movement_speed = movement_speed;
+        updateMovementSpeed();
+        
 
         readyToShoot = true;
         
@@ -180,11 +192,14 @@ public class character_1 : MonoBehaviour
             amt_of_jumps = maxAmount_of_jumps;
         }
 
-        if (ability_1_charges < maxCharges && !cr_active)
+        if (ability_1_charges < maxCharges && !charge_cr_active)
             StartCoroutine(gainCharges(0));
             // start gaining a charge
 
-        // Debug.DrawRay(transform.position, Vector3.down * 3, Color.red);
+        if (passiveStacks > 0 && !passive_cr_active)
+            StartCoroutine(loseStack());
+
+            // Debug.DrawRay(transform.position, Vector3.down * 3, Color.red);
     }
 
     // handle input
@@ -429,7 +444,7 @@ public class character_1 : MonoBehaviour
                 damage = Convert.ToInt64(base_damage * statToAdd);
                 break;
             case 2: // attackSpeed
-                attackSpeed += statToAdd;
+                attackSpeed -= base_attack_speed * statToAdd;
                 break;
             case 3: // crit_chance
                 crit_chance += statToAdd;
@@ -464,7 +479,7 @@ public class character_1 : MonoBehaviour
 
     private IEnumerator gainCharges(int i)
     {
-        cr_active = true;
+        charge_cr_active = true;
         
         current_charge_cd = ability_cooldowns[i];
         while (current_charge_cd > 0)
@@ -474,7 +489,7 @@ public class character_1 : MonoBehaviour
         }
 
         ability_1_charges++;
-        cr_active = false;
+        charge_cr_active = false;
         charge_count.text = ability_1_charges.ToString();
     }
 
@@ -488,7 +503,32 @@ public class character_1 : MonoBehaviour
         // add a stack when the player gets a kill
         public void addPassiveStack()
         {
+            // 5 - ms
+            // 2 - AS
+            //Debug.Log("adding a passive stack");
             
+            passiveStacks++;
+            updateStat(5, MS_each_stack);
+            updateStat(2, AS_each_stack);
+        }
+
+        private IEnumerator loseStack()
+        {
+            passive_cr_active = true;
+            
+            float time = 10f;
+
+            while (time > 0)
+            {
+                time -= Time.deltaTime;
+                yield return null;
+            }
+
+            passive_cr_active = false;
+
+            passiveStacks--;
+            updateStat(5, -MS_each_stack);
+            updateStat(2, -AS_each_stack);
         }
         
         // lose a stack over a certain amount of time
@@ -506,7 +546,7 @@ public class character_1 : MonoBehaviour
             {
                 ability_1_charges--;
                 charge_count.text = ability_1_charges.ToString();
-            
+
                 Debug.Log("using a GL");
             }
             
@@ -523,13 +563,36 @@ public class character_1 : MonoBehaviour
                         // gets blasted upwards 
         private void performAbility_2()
         {
-        
+            // knockback for player
+            rb_player.AddForce(knockBack_force * -cam.transform.forward, ForceMode.Impulse);
         }
         
         // increase attack speed and damage for a certain duration
         private void performAbility_3()
         {
-        
+            //attackSpeed /= 2;
+            // damage *= 2;
+            
+            updateStat(2, 0.5f);
+            updateStat(1, 1.5f);
+            Debug.LogWarning(damage);
+            
+            StartCoroutine(ability_3());
+        }
+
+        private IEnumerator ability_3()
+        {
+            float time = ability_cooldowns[2] - ability_cooldowns[2] * 0.33f;
+
+            while (time > 0)
+            {
+                Debug.LogWarning(time);
+                time -= Time.deltaTime;
+                yield return null;
+            }
+            
+            updateStat(2, -0.5f);
+            updateStat(1, 1);
         }
     
         // no ideas, yet
