@@ -33,7 +33,7 @@ public class PlayerData
 		this.crit_multiplyer = crit_mul;
 		this.num_gears = num_gears;
     }
-
+	
     public static PlayerData CreateFromJSON(string jsonString)
     {
         return JsonUtility.FromJson<PlayerData>(jsonString);
