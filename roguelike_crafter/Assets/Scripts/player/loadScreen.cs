@@ -16,8 +16,9 @@ public class loadScreen : MonoBehaviour
     {
         sceneTransitionAnimation.SetTrigger("exit");
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(4f);
         
         // load next scene/level
+        SceneManager.LoadScene("MapLab");
     }
 }
