@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6743973595433330329}
   m_LocalRotation: {x: 0, y: -0.6786727, z: 0, w: 0.7344409}
-  m_LocalPosition: {x: 656.3, y: 352.29, z: 330.8}
+  m_LocalPosition: {x: 677.39, y: 352.29, z: 368.02997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -130,3 +130,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   manager: {fileID: 2463257949244769185, guid: edcbb2040dd2062458fc79fb028971cc, type: 3}
+  player: {fileID: 0}

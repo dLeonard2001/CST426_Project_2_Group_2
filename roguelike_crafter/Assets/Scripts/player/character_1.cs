@@ -401,7 +401,9 @@ public class character_1 : MonoBehaviour
                 crit_damage += statToAdd;
                 break;
             case 5: // movement speed
+                Debug.LogWarning(base_movement_speed * statToAdd);
                 movement_speed += base_movement_speed * statToAdd;
+                Debug.LogWarning(movement_speed);
                 updateMovementSpeed();
                 break;
             case 6: // armor
@@ -417,8 +419,13 @@ public class character_1 : MonoBehaviour
         }
     }
 
+    // BUG:
+        // when doing movement
+            // if you add movement to the player,
+                // the overall movement gets changed on its current movement speed
     private void updateMovementSpeed()
     {
+        //Debug.LogWarning(movement_speed);
         walk_speed = movement_speed;
         sprint_speed = movement_speed * 1.5f;
         jumpForce = movement_speed * 2;
