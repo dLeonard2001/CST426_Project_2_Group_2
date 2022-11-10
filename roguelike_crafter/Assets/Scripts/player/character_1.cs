@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -148,7 +149,10 @@ public class character_1 : MonoBehaviour
 
         // set speeds based on player's movement speed
         base_movement_speed = movement_speed;
-        updateMovementSpeed();
+        walk_speed = movement_speed;
+        sprint_speed = movement_speed * 1.5f;
+        jumpForce = movement_speed * 2;
+        slideForce = movement_speed * 2.25f;
 
         gl_script = gl_object.GetComponent<gl_projectile>();
         
@@ -196,7 +200,7 @@ public class character_1 : MonoBehaviour
         {
             amt_of_jumps = maxAmount_of_jumps;
         }
-
+        
         if (ability_1_charges < maxCharges && !charge_cr_active)
             StartCoroutine(gainCharges(0));
             // start gaining a charge
@@ -211,9 +215,7 @@ public class character_1 : MonoBehaviour
     private void FixedUpdate()
     {
         if (inputManager.Attack() && readyToShoot)
-        {
             Shoot();
-        }
         
         transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
 
@@ -261,13 +263,13 @@ public class character_1 : MonoBehaviour
         }else if (inputManager.moveBackward())
         {
             movement_speed = walk_speed / 2;
-            rb_player.AddForce(movement_speed * -transform.forward, ForceMode.Impulse);
+            rb_player.AddForce(movement_speed / 2 * -transform.forward, ForceMode.Impulse);
         }
 
         if (inputManager.moveLeft())
         {
             movement_speed = walk_speed;
-            rb_player.AddForce(movement_speed * -transform.right, ForceMode.Impulse); 
+            rb_player.AddForce(walk_speed * -transform.right, ForceMode.Impulse); 
         }else if(inputManager.moveRight()) 
         {
             movement_speed = walk_speed;
@@ -402,9 +404,8 @@ public class character_1 : MonoBehaviour
                 break;
             case 5: // movement speed
                 Debug.LogWarning(base_movement_speed * statToAdd);
-                movement_speed += base_movement_speed * statToAdd;
-                Debug.LogWarning(movement_speed);
-                updateMovementSpeed();
+                // movement_speed += base_movement_speed * statToAdd;
+                updateMovementSpeed(base_movement_speed * statToAdd);
                 break;
             case 6: // armor
                 armor += statToAdd;
@@ -423,13 +424,17 @@ public class character_1 : MonoBehaviour
         // when doing movement
             // if you add movement to the player,
                 // the overall movement gets changed on its current movement speed
-    private void updateMovementSpeed()
+                
+    // current speed: 7.5
+    // 5 += 0.75;
+        // 5.75;
+    private void updateMovementSpeed(float add)
     {
         //Debug.LogWarning(movement_speed);
-        walk_speed = movement_speed;
-        sprint_speed = movement_speed * 1.5f;
-        jumpForce = movement_speed * 2;
-        slideForce = movement_speed * 2.25f;
+        walk_speed += add;
+        sprint_speed += add;
+        jumpForce += add;
+        slideForce += add;
     }
 
     #region Abilities

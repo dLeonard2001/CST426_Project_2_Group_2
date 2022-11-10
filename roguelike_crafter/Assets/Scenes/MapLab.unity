@@ -1624,7 +1624,7 @@ PrefabInstance:
     - target: {fileID: 4445131906538611765, guid: 1f082bcc34b33174fab4e1a4a18f3742,
         type: 3}
       propertyPath: AS_passive_stack
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4445131906538611765, guid: 1f082bcc34b33174fab4e1a4a18f3742,
         type: 3}
@@ -1795,6 +1795,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445131906666856543, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
+      propertyPath: verticalSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445131906666856543, guid: 1f082bcc34b33174fab4e1a4a18f3742,
+        type: 3}
+      propertyPath: horizontalSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f082bcc34b33174fab4e1a4a18f3742, type: 3}
