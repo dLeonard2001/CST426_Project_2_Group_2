@@ -4,9 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - LV1 LandEscape
   - TPA
   - TPB
+  - OOB
+  - GridRay
+  - Level
+  - LV1 LandEscape
   layers:
   - Default
   - TransparentFX
