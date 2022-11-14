@@ -1,42 +1,37 @@
+// TODO: Make this like MakeshiftGrid.cs but have the spawns be on a timer and set it to the "exit" object and test if this shit works...
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MakeshiftGrid : MonoBehaviour
+public class ExitEvent : MonoBehaviour
 {
-    public GameObject placement;
     public GameObject ePlacement;
     public List<GameObject> currentPlacements;
-    public int xStart = 77;
-    public int xLast = 947;
-    public int zStart = 18;
-    public int zLast = 955;
-    public float timer = 30f;
-    bool spawningOtherObjects, spawningEn;
+    public int xStart = 0;
+    public int xLast = 50;
+    public int zStart = 0;
+    public int zLast = 50;
+    public float etimer = 15f;
+    public float endTimer = 90f;
+    bool charging;
     // Start is called before the first frame update
     void Start()
     {
-        spawningOtherObjects = true;
-        spawningEn = false;
+        charging = false;
+        // spawningOtherObjects = true;
+        // spawningEn = false;
+        // spawnGrid();
+    }
+
+    public void startCharging()
+    {
+        charging = true;
         spawnGrid();
     }
 
     void spawnGrid()
     {
-        if (spawningOtherObjects)
-        {
-            for (int a = 0; a <= 10; a++)
-            {
-                int x = Random.Range(xStart, xLast);
-                int z = Random.Range(zStart, zLast);
-                Vector3 pos = new Vector3((float)x, 800f, (float)z);
-                GameObject temp = placement;
-                Instantiate(temp, pos, Quaternion.identity);
-                currentPlacements.Add(temp);
-            }
-        }
-        
-        else
+        if (charging)
         {
             for (int a = 0; a <= 15; a++)
             {
@@ -53,7 +48,17 @@ public class MakeshiftGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        updateCurrentPlacement();
+        if (charging && endTimer > 0)
+        {
+            updateCurrentPlacement();
+            endTimer -= Time.deltaTime;
+        }
+
+        else if (endTimer <= 0)
+        {
+            charging = false;
+            endTimer = 0;
+        }
     }
 
     void updateCurrentPlacement()
@@ -78,25 +83,15 @@ public class MakeshiftGrid : MonoBehaviour
 
         else
         {
-            if (spawningOtherObjects)
+
+            if (etimer <= 0)
             {
-                spawningOtherObjects = false;
-                spawningEn = true;
+                etimer = 30f;
                 spawnGrid();
             }
-            
-            else
-            {
-                if (timer <= 0)
-                {
-                    timer = 30f;
-                    spawnGrid();
-                }
-                timer -= Time.deltaTime;
-            }
-            
+            etimer -= Time.deltaTime;
         }
-       
+
     }
 
     void UpdateGrid()

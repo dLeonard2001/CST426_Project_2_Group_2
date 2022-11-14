@@ -39,7 +39,6 @@ public class PlacementLogic : MonoBehaviour
         if (passed)
         {
             spawner.SpawnRandomObject(markers[0]);
-            //spawn random game object and kill yourself
         }
     }
 

@@ -9,7 +9,9 @@ TagManager:
   - OOB
   - GridRay
   - Level
-  - LV1 LandEscape
+  - TP1 Local
+  - TP2 Local
+  - Player TP
   layers:
   - Default
   - TransparentFX

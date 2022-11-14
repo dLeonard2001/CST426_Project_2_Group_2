@@ -9,7 +9,8 @@ public class CreateRandomThing2 : MonoBehaviour
     public void SpawnRandomObject(Vector3 pos)
     {
         GameObject me = options[Random.Range(0, options.Count)];
-        Instantiate(me, pos, Quaternion.identity);
+        Vector3 rotation = new Vector3(0f, Random.Range(-359, 359), 0f);
+        Instantiate(me, pos, Quaternion.Euler(rotation));
         Destroy(gameObject);
     }
 }
