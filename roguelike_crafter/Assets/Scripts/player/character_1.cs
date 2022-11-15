@@ -23,6 +23,7 @@ public class character_1 : MonoBehaviour
     public float armor;
     public float luck;
 
+    public float passive_stack_time;
     public float MS_passive_stack;
     public float AS_passive_stack;
     private float base_movement_speed;
@@ -31,6 +32,8 @@ public class character_1 : MonoBehaviour
     private List<int> stat_id;
     private int amt_of_stats;
     private int passiveStacks;
+
+    private long dmg_taken_away;
     
     // access a stat correlated to its stat id 
         // 0 = health;
@@ -187,9 +190,11 @@ public class character_1 : MonoBehaviour
         
         if (inputManager.useAbility_3() && !ability_OnCooldown[2])
             ability_useAbility[2] = true;
-        
+
         if (inputManager.useAbility_4() && !ability_OnCooldown[3])
+        {
             ability_useAbility[3] = true;
+        }
         
         if (inputManager.Jump() && amt_of_jumps > 0)
         {
@@ -325,7 +330,7 @@ public class character_1 : MonoBehaviour
         GameObject bullet = Instantiate(projectile, barrel.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * proj_script.projectileSpeed, ForceMode.Impulse);
         bullet.GetComponent<projectile>().setDamage(calculateDamage(5));
-        
+
         Invoke(nameof(resetShoot), attackSpeed);
     }
 
@@ -360,7 +365,12 @@ public class character_1 : MonoBehaviour
 
     private void handleAbilitiesInput()
     {
-        for (int i = 0; i < ability_useAbility.Count; i++)
+        if (ability_useAbility[3])
+        {
+            useAbility(3);
+        }
+        
+        for (int i = 0; i < ability_useAbility.Count-1; i++)
         {
             if (ability_useAbility[i])
             {
@@ -419,15 +429,7 @@ public class character_1 : MonoBehaviour
                 break;
         }
     }
-
-    // BUG:
-        // when doing movement
-            // if you add movement to the player,
-                // the overall movement gets changed on its current movement speed
-                
-    // current speed: 7.5
-    // 5 += 0.75;
-        // 5.75;
+    
     private void updateMovementSpeed(float add)
     {
         //Debug.LogWarning(movement_speed);
@@ -467,6 +469,12 @@ public class character_1 : MonoBehaviour
             // Each stack gives temporary movement speed and attack speed
 
         // add a stack when the player gets a kill
+        
+        // if at max stacks (passiveStacks == 10)
+            // refresh current stack cooldown
+        // if (passiveStacks < 10)
+            // refresh current stack cooldown
+            // add stack
         public void addPassiveStack()
         {
             // 5 - ms
@@ -478,11 +486,12 @@ public class character_1 : MonoBehaviour
             updateStat(2, AS_passive_stack);
         }
 
+        
         private IEnumerator loseStack()
         {
             passive_cr_active = true;
             
-            float time = 10f;
+            float time = current_charge_cd;
 
             while (time > 0)
             {
@@ -498,7 +507,7 @@ public class character_1 : MonoBehaviour
         }
 
         // shoots an underbarrel Gl (grenade launcher)
-            // will have 3 charges to use?
+            // will have 3 charges to use
         private void performAbility_1()
         {
             if (ability_1_charges == 0)
@@ -580,8 +589,6 @@ public class character_1 : MonoBehaviour
             Debug.LogWarning(damage);
             
             StartCoroutine(ability_3_duration());
-            
-            
         }
 
         private IEnumerator ability_3_duration()
@@ -590,7 +597,7 @@ public class character_1 : MonoBehaviour
 
             while (time > 0)
             {
-                Debug.LogWarning(time);
+                // Debug.LogWarning(time);
                 time -= Time.deltaTime;
                 yield return null;
             }
@@ -599,10 +606,40 @@ public class character_1 : MonoBehaviour
             updateStat(1, 1);
         }
     
-        // no ideas, yet
+        // hollow point bullets
+            // while active
+                // bullets do less dmg, but can apply a bleed affect
+            // active only for 10 seconds
+
+        // hollow point bleed
+            // deal 10% current hp as damage per 1.5 seconds
+            // max bleed stack of 3
+                // bleed stack decays after 3 seconds
         private void performAbility_4()
         {
+            // decrease damage by 30%
+            // bullets are now hollow point bullets
+            if (false)
+            {
+
+                Debug.Log("turning off hollow points");
+                
+                damage += dmg_taken_away;
+
+                StartCoroutine(startCooldown(3));
+            }
+            else
+            {
+                Debug.Log("turning on hollow points");
+                
+                // dmg = 100
+                dmg_taken_away = Convert.ToInt64(damage * 0.30f);
+                damage -= dmg_taken_away;
+                // dmg = 70
+                // dmg = 80 ; dmg == 110
             
+                canvasGroups[3].alpha = 0.5f;
+            }
         }
         
         private IEnumerator gainCharges(int i)

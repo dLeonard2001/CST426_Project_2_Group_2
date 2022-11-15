@@ -1,23 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class enemyHealth : MonoBehaviour
 {
     public long health;
-    public Observer manager;
-    public GameObject player;
+    public Observer observer;
 
-    // NEEDS TO BE CHANGED
-    // ONLY USING FIND WITH TAG FOR PLAYTEST PURPOSES
-    private void Start()
+    private void Awake()
     {
-        manager = GameObject.FindWithTag("gamemanager").GetComponent<Observer>();
-        player = GameObject.FindWithTag("Player");
-    }
-
-    private void Update()
-    {
-        transform.LookAt(player.transform);
+        observer = GameObject.FindWithTag("gamemanager").GetComponent<Observer>();
     }
 
     public void TakeDamage(long damageToInflict)
@@ -26,7 +18,7 @@ public class enemyHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            manager.enemyHasDied(transform.position);
+            observer.enemyHasDied(transform.position);
             Destroy(gameObject);
         }
         
