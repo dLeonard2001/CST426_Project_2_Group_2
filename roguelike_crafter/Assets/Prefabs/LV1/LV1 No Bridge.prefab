@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3829342792722555159}
   - component: {fileID: 3509113076306734983}
   - component: {fileID: 2608407258460456860}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: OOB
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 7644283182959727387}
   - component: {fileID: 6190219886497198833}
   - component: {fileID: 5580370472686674334}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LV1 No Bridge
   m_TagString: Level
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 4730995737102060225}
   - component: {fileID: 3729304829529395494}
   - component: {fileID: 2926072984690619696}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: OOB
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 405315948527447363}
   - component: {fileID: 6858544785477122975}
   - component: {fileID: 1466111574294095368}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: OOB
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 7763168005899501907}
   - component: {fileID: 1731043149525756850}
   - component: {fileID: 4282651505903115581}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,6 +566,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Arch
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149283639508584069, guid: 8d3781a58a2c835419977ce8dbab3033,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8149283639508584071, guid: 8d3781a58a2c835419977ce8dbab3033,
         type: 3}

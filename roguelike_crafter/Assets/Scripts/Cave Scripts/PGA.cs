@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Directions
+public static class Direction
 {
     public static List<Vector2Int> cardDirections = new List<Vector2Int>
     {
@@ -27,7 +27,7 @@ public static class PGA
 
         for (int c = 0; c < walkTime; c++)
         {
-            var newPos = prevPos + Directions.getRandomDirection();
+            var newPos = prevPos + Direction.getRandomDirection();
             path.Add(newPos);
             prevPos = newPos;
         }

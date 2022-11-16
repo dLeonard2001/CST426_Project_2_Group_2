@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6421218624488707223}
   - component: {fileID: 264950144304824907}
   - component: {fileID: 5249952869714599900}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 2100057772402537237}
   - component: {fileID: 8017003407770216690}
   - component: {fileID: 8365514391073524964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 3981015837498914951}
   - component: {fileID: 4937878644113134182}
   - component: {fileID: 7488413327117739241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 7613253941491194051}
   - component: {fileID: 7796266573805786707}
   - component: {fileID: 8696965935784066632}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 3933555528538286799}
   - component: {fileID: 678685461186317093}
   - component: {fileID: 1293181275419678794}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LV1 No Bridge - no CB
   m_TagString: Level
   m_Icon: {fileID: 0}
