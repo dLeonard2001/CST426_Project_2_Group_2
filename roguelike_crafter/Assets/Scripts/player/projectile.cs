@@ -9,7 +9,6 @@ public class projectile : MonoBehaviour
 
     private void Start()
     {
-        isHollowPoint = false;
         Destroy(gameObject, 10f);
     }
 
@@ -25,6 +24,8 @@ public class projectile : MonoBehaviour
             enemyHealth enemy = other.transform.GetComponent<enemyHealth>();
             buff_inventory affect = other.transform.GetComponent<buff_inventory>();
             // Debug.Log(damage);
+            
+            Debug.LogWarning(isHollowPoint);
 
             if (isHollowPoint)
             {
@@ -35,5 +36,12 @@ public class projectile : MonoBehaviour
             enemy.TakeDamage(damage);
         }
         Destroy(gameObject);
+    }
+
+    public void setHollowPointStatus(bool status)
+    {
+        isHollowPoint = status;
+        
+        Debug.LogWarning(isHollowPoint + " changing hollow point status");
     }
 }

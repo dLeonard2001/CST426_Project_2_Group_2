@@ -5,6 +5,7 @@ using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -34,6 +35,7 @@ public class character_1 : MonoBehaviour
     private int passiveStacks;
 
     private long dmg_taken_away;
+    private bool isHollowPoint;
     
     // access a stat correlated to its stat id 
         // 0 = health;
@@ -97,6 +99,9 @@ public class character_1 : MonoBehaviour
 
     [Header("Other")] 
     public LayerMask whatIsGround;
+
+    [Header("Events")] 
+    public UnityEvent ability_event;
 
     // player input
     private InputManager inputManager;
@@ -330,6 +335,8 @@ public class character_1 : MonoBehaviour
         GameObject bullet = Instantiate(projectile, barrel.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * proj_script.projectileSpeed, ForceMode.Impulse);
         bullet.GetComponent<projectile>().setDamage(calculateDamage(5));
+        // Debug.LogWarning(isHollowPoint);
+        bullet.GetComponent<projectile>().setHollowPointStatus(isHollowPoint);
 
         Invoke(nameof(resetShoot), attackSpeed);
     }
@@ -413,7 +420,7 @@ public class character_1 : MonoBehaviour
                 crit_damage += statToAdd;
                 break;
             case 5: // movement speed
-                Debug.LogWarning(base_movement_speed * statToAdd);
+                // Debug.LogWarning(base_movement_speed * statToAdd);
                 // movement_speed += base_movement_speed * statToAdd;
                 updateMovementSpeed(base_movement_speed * statToAdd);
                 break;
@@ -619,18 +626,21 @@ public class character_1 : MonoBehaviour
         {
             // decrease damage by 30%
             // bullets are now hollow point bullets
-            if (false)
+            
+            ability_event.Invoke();
+            if (isHollowPoint)
             {
 
-                Debug.Log("turning off hollow points");
+                // Debug.Log("turning off hollow points");
                 
                 damage += dmg_taken_away;
+                isHollowPoint = false;
 
                 StartCoroutine(startCooldown(3));
             }
             else
             {
-                Debug.Log("turning on hollow points");
+                // Debug.Log("turning on hollow points");
                 
                 // dmg = 100
                 dmg_taken_away = Convert.ToInt64(damage * 0.30f);
@@ -639,7 +649,21 @@ public class character_1 : MonoBehaviour
                 // dmg = 80 ; dmg == 110
             
                 canvasGroups[3].alpha = 0.5f;
+                isHollowPoint = true;
+                StartCoroutine(timer(1));
+                
             }
+        }
+
+        private IEnumerator timer(float time)
+        {
+            while (time > 0)
+            {
+                time -= Time.fixedDeltaTime;
+                yield return null;
+            }
+            
+            ability_OnCooldown[3] = false;
         }
         
         private IEnumerator gainCharges(int i)

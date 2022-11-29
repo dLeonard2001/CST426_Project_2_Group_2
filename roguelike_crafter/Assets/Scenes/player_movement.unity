@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4792442540a21438d737706d5561ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useBleedStackTimer: 1.5
+  useBleedStackTimer: 5
 --- !u!114 &1256591040 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4189372339583262257, guid: 0e90661844aa6ab4aac87cbe3b553346,
@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4792442540a21438d737706d5561ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useBleedStackTimer: 1.5
+  useBleedStackTimer: 5
 --- !u!114 &1483762168 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2463257949244769185, guid: edcbb2040dd2062458fc79fb028971cc,
@@ -3125,7 +3125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4792442540a21438d737706d5561ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useBleedStackTimer: 1.5
+  useBleedStackTimer: 5
 --- !u!1001 &7772856535482096161
 PrefabInstance:
   m_ObjectHideFlags: 0

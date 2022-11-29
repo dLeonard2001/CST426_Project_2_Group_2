@@ -14,6 +14,7 @@ public class buff_inventory : MonoBehaviour
 
     private void Start()
     {
+        stackCounter = 0;
         enemy = GetComponent<enemyHealth>();
         maxTimer = useBleedStackTimer;
     }
@@ -23,20 +24,18 @@ public class buff_inventory : MonoBehaviour
     {
         if (stackCounter > 0 && !cr_active)
         {
+            Debug.LogWarning(stackCounter + " update");
+            usagesLeft = 2;
             StartCoroutine(performBleedStack());
         }
     }
 
     public void addBleedAffect()
     {
-        if (stackCounter >= 3)
-        {
-            stackCounter = 3;
-            refreshTimer();
-        }
-        else
-        {
-            usagesLeft = 2;
+        
+        if(stackCounter < 3){
+            Debug.LogWarning(stackCounter + " bleed stacks");
+            Debug.Log("check");
             stackCounter++; 
         }
     }
@@ -44,13 +43,17 @@ public class buff_inventory : MonoBehaviour
     private IEnumerator performBleedStack()
     {
         cr_active = true;
-        Debug.LogWarning(stackCounter);
+        // Debug.LogWarning(stackCounter);
         
+        long damage = Convert.ToInt64(enemy.health * 0.1f);
+
         while (usagesLeft > 0)
         {
-            useBleedStackTimer -= Time.deltaTime;
-            if (useBleedStackTimer > 0)
+            useBleedStackTimer -= Time.fixedDeltaTime;
+            if (useBleedStackTimer < 0)
             {
+                // Debug.LogWarning("taking bleed damage");
+                enemy.TakeDamage(damage);
                 usagesLeft--;
                 refreshTimer();
             }
@@ -58,12 +61,12 @@ public class buff_inventory : MonoBehaviour
             yield return null;
         }
         
-        long damage = Convert.ToInt64(enemy.health * 0.1f);
+        
         // Debug.LogWarning(enemy.health + "before");
-        enemy.TakeDamage(damage);
+        
         // Debug.LogWarning(enemy.health + "after");
 
-        Debug.LogWarning(usagesLeft + " stack usages");
+        // Debug.LogWarning(usagesLeft + " stack usages");
         
         stackCounter--;
 
