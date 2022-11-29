@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DeathAttack : EnemyCombat
 {
+    //Death should run faster than Player
     private Animator anim;
 
     private void Start()
@@ -26,7 +27,6 @@ public class DeathAttack : EnemyCombat
     {
         if (!enemyBasicMovement.isInAnimation)
         {
-
             anim.SetTrigger("Attack");
 
             enemyBasicMovement.StartAnimation();
@@ -42,14 +42,33 @@ public class DeathAttack : EnemyCombat
 
     }
 
+    private void Update()
+    {
+        healthBar.transform.position = new Vector3(transform.position.x, transform.position.y + yForHealthBar, transform.position.z);
+        healthBar.transform.LookAt(Camera.main.transform);
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            GetDamage(20);
+        }
+    }
+
     public override void Death()
     {
-
+        StopAllCoroutines();
+        Destroy(healthBar);
+        Destroy(this.gameObject);
     }
 
     public override void GetDamage(float damage)
     {
+        enemyData.hp -= Mathf.Max(5, damage - enemyData.defense);
+        UpdateHealthBar();
 
+        if(enemyData.hp <= 0)
+        {
+            Death();
+        }
     }
 
     public void GiveDamage()

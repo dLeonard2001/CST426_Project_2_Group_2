@@ -79,15 +79,14 @@ public class EnemyBasicMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //GetComponent<Rigidbody>().AddForce(movementDirection * speed * Time.deltaTime);
-        if (!isInAnimation)
-        {
-            transform.position += movementDirection * Time.fixedDeltaTime * speed;
-        }
+
+        transform.position += movementDirection * Time.fixedDeltaTime * speed;
+
     }
 
     private void SetAnimation()
     {
-        anim.SetBool("isFollowing", isWalking);
+        anim?.SetBool("isFollowing", isWalking);
     }
 
     private IEnumerator ChaseAndAttack()
@@ -108,9 +107,9 @@ public class EnemyBasicMovement : MonoBehaviour
                 movementDirection = Vector3.zero;
                 isWalking = false;
 
-                yield return new WaitForSeconds(0.8f);
-
                 Attack();
+
+                yield return new WaitForSeconds(0.8f);
                 
                 StartCoroutine(ChaseAndAttack());
             }

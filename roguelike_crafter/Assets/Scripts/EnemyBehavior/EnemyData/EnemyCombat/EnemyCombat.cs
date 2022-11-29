@@ -21,10 +21,11 @@ public abstract class EnemyCombat : MonoBehaviour
     protected void Init()
     {
         var dataList = Resources.Load<Enemy_SO>("ScriptableObjects/EnemyData/EnemyData");
-        if(dataList != null)
+
+        if (dataList != null)
         {
             Debug.Log("Loading..");
-            enemyData = dataList.GetFromList(ID);
+            enemyData = dataList.GetFromList(ID).Clone();
             healthBar = Instantiate(Resources.Load<GameObject>("Prefabs/HealthBar"), FindObjectOfType<Canvas>().transform);
             healthBar.GetComponent<EnemyHealthBar>().Init(enemyData);
         }
@@ -32,7 +33,7 @@ public abstract class EnemyCombat : MonoBehaviour
         {
             Debug.Log("No such Enemy");
         }
-        
+
     }
 
     public abstract IEnumerator Attack();
@@ -46,5 +47,10 @@ public abstract class EnemyCombat : MonoBehaviour
     public void StartHitBox()
     {
         hitBox.enabled = true;
+    }
+
+    protected void UpdateHealthBar()
+    {
+        healthBar.GetComponent<EnemyHealthBar>().UpdateHealth(enemyData.hp);
     }
 }
