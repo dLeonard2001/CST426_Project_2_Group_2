@@ -36,7 +36,8 @@ public abstract class EnemyCombat : MonoBehaviour
 
     }
 
-    public abstract IEnumerator Attack();
+    public abstract IEnumerator Attack { get; }
+
     public abstract void GetDamage(float damage);
     public abstract void Death();
     public void StopHitBox()

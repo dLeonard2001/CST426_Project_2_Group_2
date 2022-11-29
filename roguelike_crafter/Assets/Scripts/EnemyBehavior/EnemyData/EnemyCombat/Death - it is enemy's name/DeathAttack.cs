@@ -23,23 +23,26 @@ public class DeathAttack : EnemyCombat
         EventHandler.PlayerGetHit -= GiveDamage;
     }
 
-    public override IEnumerator Attack()
+    public override IEnumerator Attack
     {
-        if (!enemyBasicMovement.isInAnimation)
+        get
         {
-            anim.SetTrigger("Attack");
+            if (!enemyBasicMovement.isInAnimation)
+            {
+                anim.SetTrigger("Attack");
 
-            enemyBasicMovement.StartAnimation();
+                enemyBasicMovement.StartAnimation();
 
-            yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(2);
 
-            enemyBasicMovement.FinishAnimation();
+                enemyBasicMovement.FinishAnimation();
+            }
+            else
+            {
+                yield return null;
+            }
+
         }
-        else
-        {
-            yield return null;
-        }
-
     }
 
     private void Update()
@@ -55,7 +58,12 @@ public class DeathAttack : EnemyCombat
 
     public override void Death()
     {
+        anim.SetTrigger("Death");
         StopAllCoroutines();
+    }
+
+    public void CallDestory()
+    {
         Destroy(healthBar);
         Destroy(this.gameObject);
     }

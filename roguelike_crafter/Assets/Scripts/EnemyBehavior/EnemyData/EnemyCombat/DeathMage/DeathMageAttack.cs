@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Minions : EnemyCombat
+public class DeathMageAttack : EnemyCombat
 {
-
     public override IEnumerator Attack
     {
         get
@@ -13,13 +12,14 @@ public class Minions : EnemyCombat
         }
     }
 
+    public override void Death()
+    {
+
+    }
+
     public override void GetDamage(float damage)
     {
-        enemyData.hp -= damage;
-        if(enemyData.hp <= 0)
-        {
-            Death();
-        }
+
     }
 
     private void Update()
@@ -28,8 +28,4 @@ public class Minions : EnemyCombat
         healthBar.transform.LookAt(Camera.main.transform);
     }
 
-    public override void Death()
-    {
-        Destroy(this);
-    }
 }

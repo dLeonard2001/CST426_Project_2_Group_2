@@ -16,7 +16,6 @@ public class EnemyBasicMovement : MonoBehaviour
     private bool isChasing = false;
     public float safetyDistance;
     public bool needPatrol = false;
-    public bool isSpawn = false;
     public GameObject patrolBehavior;
 
     [Header("Animation")]
@@ -155,7 +154,7 @@ public class EnemyBasicMovement : MonoBehaviour
 
     private void Attack()
     {
-        StartCoroutine(GetComponent<EnemyCombat>().Attack());
+        StartCoroutine(GetComponent<EnemyCombat>().Attack);
     }
 
     internal void FinishAnimation()
