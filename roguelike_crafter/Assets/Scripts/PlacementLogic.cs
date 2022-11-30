@@ -38,7 +38,15 @@ public class PlacementLogic : MonoBehaviour
         
         if (passed)
         {
-            spawner.SpawnRandomObject(markers[0]);
+            if (gameObject.name.Contains("E Type"))
+            {
+                spawner.SpawnRandomObjectAdjusted(markers[0]);
+            }
+
+            else
+            {
+                spawner.SpawnRandomObject(markers[0]);
+            }
         }
     }
 
