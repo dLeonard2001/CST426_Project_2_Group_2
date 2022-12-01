@@ -67,9 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   options:
-  - {fileID: 8734224681412266973, guid: 662da09bfc16c6b44b57ef2281534769, type: 3}
-  - {fileID: 3045183415314499328, guid: d8c32662d02c6764181697295595bfc6, type: 3}
-  - {fileID: 5974151892705374969, guid: 9e955d2ced5194440afcf83e88c188e3, type: 3}
+  - {fileID: 8146358899042154398, guid: af8b884d9f2bb9440a4de6f36eea44bd, type: 3}
+  - {fileID: 4371139979578960710, guid: 4c63dc7e79683ab40b97a9cbd0a8785f, type: 3}
 --- !u!1001 &1819921336873457010
 PrefabInstance:
   m_ObjectHideFlags: 0
