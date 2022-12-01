@@ -2,24 +2,38 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class rotateCamera : MonoBehaviour
 {
 
     public Camera mainCam;
-    public float x_rotation;
-    public float y_rotation;
-    public float z_rotation;
-    
-    public bool startRotation;
-    // Update is called once per frame
-    void Update()
+    public float x_axis;
+    public float y_axis;
+    public float z_axis;
+
+    public float timer;
+    private float maxTime;
+
+    private void Start()
     {
-        
+        maxTime = timer;
+        x_axis = Random.Range(-0.25f, 0.25f);
+        y_axis = Random.Range(-0.25f, 0.25f);
+        z_axis = Random.Range(-0.25f, 0.25f);
     }
 
     private void FixedUpdate()
     {
-        mainCam.transform.Rotate(new Vector3(0,y_rotation,0));
+        if (timer < 0)
+        {
+            timer = maxTime;
+            x_axis = Random.Range(-0.25f, 0.25f);
+            y_axis = Random.Range(-0.25f, 0.25f);
+            z_axis = Random.Range(-0.25f, 0.25f);
+        }
+
+        timer -= Time.fixedDeltaTime;
+        mainCam.transform.Rotate(new Vector3(x_axis, y_axis, z_axis));
     }
 }
