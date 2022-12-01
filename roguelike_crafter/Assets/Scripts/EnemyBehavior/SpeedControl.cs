@@ -1,45 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpeedControl : MonoBehaviour
 {
     private Rigidbody rb;
-    private bool startFalling = true;
-    public PatrolBehavior patrol;
-
-    private void Start()
-    {
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-    }
+    public bool startFalling = true;
 
     private void OnEnable()
     {
+        startFalling = true;
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         rb = GetComponent<Rigidbody>();
+        Reset();
     }
 
     private void FixedUpdate()
     {
         if (startFalling)
         {
-            rb.velocity = new Vector3(0, -15, 0);
+            rb.velocity = new Vector3(0, -10, 0);
         }
     }
 
     private void OnCollisionEnter(Collision other)
     {
         startFalling = false;
-        GetComponent<BoxCollider>().isTrigger = true;
         gameObject.layer = LayerMask.NameToLayer("Target");
-        rb.constraints = RigidbodyConstraints.FreezeAll;
-        StartCoroutine(ChangeLayer());
+        StartCoroutine(WaitAndUnenable());
     }
 
-    IEnumerator ChangeLayer()
+    IEnumerator WaitAndUnenable()
     {
-        yield return new WaitForSeconds(1f);
-
+        yield return new WaitForSeconds(0.2f);
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        GetComponent<BoxCollider>().isTrigger = true;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        gameObject.SetActive(false);
     }
 
     public void Reset()
@@ -48,7 +47,6 @@ public class SpeedControl : MonoBehaviour
         startFalling = true;
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         rb.constraints = RigidbodyConstraints.None;
-        patrol.RandomPosition();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -58,6 +56,4 @@ public class SpeedControl : MonoBehaviour
             Reset();
         }
     }
-
-
 }

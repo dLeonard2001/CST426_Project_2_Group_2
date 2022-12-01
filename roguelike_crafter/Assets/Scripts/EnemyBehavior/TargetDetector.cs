@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetDetector : Detector
 {
-    [SerializeField] private float targetDetectionRange = 5;
+    public float targetDetectionRange = 5;
     [SerializeField] private LayerMask obstacleLayer, playerLayer;
     [SerializeField] private bool showGizmos = false;
     private List<Transform> colliders;
@@ -34,8 +34,9 @@ public class TargetDetector : Detector
             colliders = null;
             //colliders.Add(GetComponentInParent<PatrolBehavior>().SearchPosition());
         }
-        //Debug.Log("Run");
+        
         enemyData.targets = colliders;
+        
     }
 
     private void OnDrawGizmos()
