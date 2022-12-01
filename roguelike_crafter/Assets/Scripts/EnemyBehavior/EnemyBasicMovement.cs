@@ -14,20 +14,29 @@ public class EnemyBasicMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Vector3 movementDirection = Vector3.zero;
     private bool isChasing = false;
-    private bool isPatrol = false;
-    [SerializeField] private float safetyDistance;
-    [SerializeField] private GameObject patrol;
-    
+    public float safetyDistance;
     public bool needPatrol = false;
-    
+    public GameObject patrolBehavior;
+
+    [Header("Animation")]
+    public Animator anim;
+    private bool isWalking;
+    private bool isAttack;
+    public bool isInAnimation = true;
+    //[SerializeField] private GameObject patrol;
+
     private void Start()
     {
         InvokeRepeating("PerformDetection", 0, detectionDelay);
         //StartCoroutine(IErandomDirection());
-        if(needPatrol)
+        if (needPatrol)
         {
-            patrol.SetActive(true);
+            //patrol.SetActive(true);
+            patrolBehavior = Instantiate(patrolBehavior);
+            patrolBehavior.transform.position = transform.position;
+            patrolBehavior.GetComponent<PatrolBehavior>().Init(GetComponentInChildren<TargetDetector>().targetDetectionRange);
         }
+        anim = GetComponent<Animator>();
     }
 
     private void PerformDetection()
@@ -40,33 +49,48 @@ public class EnemyBasicMovement : MonoBehaviour
 
     private void Update()
     {
-        if(enemyData.currentTarget != null)
+        if (enemyData.currentTarget != null)
         {
-            transform.LookAt(enemyData.currentTarget);
-            if(!isChasing)
+            isWalking = true;
+            //transform.LookAt(enemyData.currentTarget);
+            GetComponent<EnemyLookAt>().LookAt(enemyData.currentTarget);
+
+            if (!isChasing)
             {
                 isChasing = true;
                 StartCoroutine(ChaseAndAttack());
             }
             //Vector3.MoveTowards(transform.position, enemyData.currentTarget.position, speed * Time.deltaTime);
         }
-        else if(enemyData.GetTargetsCount() > 0)
+        else if (enemyData.GetTargetsCount() > 0)
         {
             enemyData.currentTarget = enemyData.targets[0];
         }
 
         //MoveFunction
-        GetComponent<Rigidbody>().AddForce(movementDirection * speed * Time.deltaTime);
 
-        if(isPatrol)
-        {
 
-        }
+        SetAnimation();
+    }
+
+
+
+    private void FixedUpdate()
+    {
+        //GetComponent<Rigidbody>().AddForce(movementDirection * speed * Time.deltaTime);
+
+        transform.position += movementDirection * Time.fixedDeltaTime * speed;
+
+    }
+
+    private void SetAnimation()
+    {
+        anim?.SetBool("isFollowing", isWalking);
     }
 
     private IEnumerator ChaseAndAttack()
     {
-        if(enemyData.currentTarget == null) // lost player
+        if (enemyData.currentTarget == null) // lost player
         {
             movementDirection = Vector3.zero;
             isChasing = false;
@@ -76,14 +100,16 @@ public class EnemyBasicMovement : MonoBehaviour
         else
         {
             float distance = Vector3.Distance(enemyData.currentTarget.position, transform.position);
-            
-            if(distance < safetyDistance)
+
+            if (distance < safetyDistance)
             {
                 movementDirection = Vector3.zero;
+                isWalking = false;
 
                 Attack();
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.8f);
+                
                 StartCoroutine(ChaseAndAttack());
             }
             else
@@ -98,7 +124,7 @@ public class EnemyBasicMovement : MonoBehaviour
 
     private void AddRandomDirection(ref Vector3 direction)
     {
-        if(Vector3.Distance(transform.position, enemyData.currentTarget.position) <= safetyDistance)
+        if (Vector3.Distance(transform.position, enemyData.currentTarget.position) <= safetyDistance)
         {
             //direction += RandomDirection.normalized;
         }
@@ -107,9 +133,9 @@ public class EnemyBasicMovement : MonoBehaviour
     IEnumerator BackToPortal()
     {
         float time = 0;
-        while(time <= 4)
+        while (time <= 4)
         {
-            if(enemyData.currentTarget != null)
+            if (enemyData.currentTarget != null)
             {
                 break;
             }
@@ -117,9 +143,9 @@ public class EnemyBasicMovement : MonoBehaviour
             yield return null;
         }
 
-        if(enemyData.currentTarget == null && needPatrol)
+        if (enemyData.currentTarget == null && needPatrol)
         {
-            enemyData.currentTarget = GetComponentInParent<PatrolBehavior>().SearchPosition();
+            //enemyData.currentTarget = GetComponentInParent<PatrolBehavior>().SearchPosition();
         }
 
         yield return null;
@@ -128,7 +154,17 @@ public class EnemyBasicMovement : MonoBehaviour
 
     private void Attack()
     {
-        GetComponent<EnemyCombat>().Attack();
+        StartCoroutine(GetComponent<EnemyCombat>().Attack);
+    }
+
+    internal void FinishAnimation()
+    {
+        isInAnimation = false;
+    }
+
+    internal void StartAnimation()
+    {
+        isInAnimation = true;
     }
 
 }

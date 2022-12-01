@@ -17,3 +17,7 @@ MonoBehaviour:
     hp: 100
     attack: 20
     defense: 5
+  - ID: 1002
+    hp: 100
+    attack: 20
+    defense: 5
