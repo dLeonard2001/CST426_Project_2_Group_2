@@ -7,6 +7,10 @@ TagManager:
   - Wall
   - Enemy
   - LV1 LandEscape
+  - enemy
+  - item
+  - TPA
+  - TPB
   layers:
   - Default
   - TransparentFX
@@ -14,7 +18,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - whatIsGround
   - 
   - 
   - 

@@ -8,7 +8,7 @@ public class CreateRandomThing : MonoBehaviour
     void Awake()
     {
         GameObject me = options[Random.Range(0, options.Count)];
-        Instantiate(me, Vector3.zero, Quaternion.identity);
+        Instantiate(me, this.transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

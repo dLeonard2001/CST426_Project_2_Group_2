@@ -1,77 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // TODO: Have a toggle sprint button and make the camera lowered to simulate crouching, whatever style of crouch is your choice
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public float gravity = -17.62f; // original number is 8.81
-    public float speed;
-    public CharacterController CC; // move command
-    public Transform groundPos; // ground trigger position
-    public LayerMask mask; // looking for a layer
-    public float jumpHeight = 5f; // adjustable
-    //float groundRadius = 0.4f; // adjustable for ground checks
-    bool grounded;
-    [SerializeField] bool run;
-    Vector3 vel; // maybe this shouldn't be a vector???
+    public float mouseSpeed;
+    public float movementSpeed;
+    Vector2 looking;
+    Transform camTransform;
+    CharacterController CC;
+    PlayerInput playerInput;
+    InputAction moveAction;
+    InputAction lookAction;
+
+    void Awake()
+    {
+        CC = GetComponent<CharacterController>();
+        camTransform = Camera.main.transform;
+        playerInput = GetComponent<PlayerInput>();
+        moveAction = playerInput.actions["move"];
+        lookAction = playerInput.actions["look"];
+
+    }
     void Start()
     {
-        run = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
-
-    // Update is called once per frame
     void Update()
     {
+        lookingAround();
+        updateMovement();
+    }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+    void lookingAround()
+    {
+        Vector2 lookInput = lookAction.ReadValue<Vector2>();
 
-        Vector3 movement = transform.right * x + transform.forward * z;
+        looking.x += lookInput.x * mouseSpeed;
+        looking.y += lookInput.y * mouseSpeed;
+        looking.y = Mathf.Clamp(looking.y, -89f, 89f);
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-            vel.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            grounded = false;
-        }
+        transform.localRotation = Quaternion.Euler(0f, looking.x, 0f);
+        camTransform.localRotation = Quaternion.Euler(-looking.y, 0f, 0f);
+    }
 
-        if ((Input.GetKeyDown(KeyCode.LeftShift) && !run) && grounded)
-        {
-            Debug.Log("I AM RUNNING");
-            StartCoroutine(sprinting(movement));
-        }
-
-        else if ((Input.GetKey(KeyCode.LeftShift) && run) && grounded)
-        {
-            Debug.Log("I SHOULD BE RUNNING");
-            CC.Move(movement * speed * 2);
-        }
-
-        else if ((Input.GetKeyUp(KeyCode.LeftShift) && run))
-        {
-            Debug.Log("I HAVE STOPPED RUNNING");
-            run = false;
-        }
-
-        else
-        {
-            CC.Move(movement * speed);
-        }
+    void updateMovement()
+    {
+        var moveInput = moveAction.ReadValue<Vector2>();
         
-        vel.y += gravity * Time.deltaTime;
-        CC.Move(vel * Time.deltaTime);
+        Vector3 inputVect = new Vector3();
+        inputVect += transform.forward * moveInput.y;
+        inputVect += transform.right * moveInput.x;
+        inputVect = Vector3.ClampMagnitude(inputVect, 1f);
+        CC.Move(-inputVect * movementSpeed * Time.deltaTime);
     }
-
-    public void gravityReset()
+    public void Teleport(Vector3 position, Quaternion rotation)
     {
-        grounded = true;
-        gravity = -2f;
-    }
+        transform.position = position;
+        Physics.SyncTransforms();
+        looking.x = rotation.eulerAngles.y;
+        looking.y = rotation.eulerAngles.z;
+        //vel = Vector3.zero;
 
-    IEnumerator sprinting(Vector3 moveVector)
-    {
-        yield return new WaitForSeconds(1);
-        run = true;
     }
 }
