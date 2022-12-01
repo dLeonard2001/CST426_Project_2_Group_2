@@ -18,6 +18,7 @@ TagManager:
   - TP2 Local
   - Player TP
   - GridRay Player
+  - GridRay End
   layers:
   - Default
   - TransparentFX

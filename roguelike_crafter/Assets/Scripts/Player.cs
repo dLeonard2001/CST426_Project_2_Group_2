@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// TODO: read line 72
 public class Player : MonoBehaviour
 {
     public float mouseSpeed;
