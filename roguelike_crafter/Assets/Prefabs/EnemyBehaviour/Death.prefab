@@ -206,7 +206,7 @@ MonoBehaviour:
   detectionRadius: 8
   layerMask:
     serializedVersion: 2
-    m_Bits: 2176
+    m_Bits: 2240
   showGizmos: 0
 --- !u!1 &1503915008
 GameObject:
@@ -381,7 +381,7 @@ MonoBehaviour:
     m_Bits: 2240
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8256
+    m_Bits: 8192
   showGizmos: 1
 --- !u!1 &164367091505422100
 GameObject:

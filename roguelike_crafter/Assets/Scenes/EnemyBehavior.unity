@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 729133736}
   - component: {fileID: 729133735}
   - component: {fileID: 729133734}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,6 +907,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 485292998, guid: 4c63dc7e79683ab40b97a9cbd0a8785f, type: 3}
+      propertyPath: showGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 485292998, guid: 4c63dc7e79683ab40b97a9cbd0a8785f, type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
+    - target: {fileID: 485292998, guid: 4c63dc7e79683ab40b97a9cbd0a8785f, type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 2240
+      objectReference: {fileID: 0}
+    - target: {fileID: 514237578, guid: 4c63dc7e79683ab40b97a9cbd0a8785f, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 2240
+      objectReference: {fileID: 0}
     - target: {fileID: 1424599376, guid: 4c63dc7e79683ab40b97a9cbd0a8785f, type: 3}
       propertyPath: ID
       value: 1002
@@ -1046,7 +1062,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837517456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.23, y: 1, z: -38.69}
+  m_LocalPosition: {x: 24.5, y: 1, z: -2.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
