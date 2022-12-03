@@ -1,3 +1,4 @@
+//TODO: add a catch where if the selected item is the exit, check if we already have one on the map if not spawn it and record that its on the map
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

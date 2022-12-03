@@ -19,6 +19,7 @@ TagManager:
   - Player TP
   - GridRay Player
   - GridRay End
+  - End
   layers:
   - Default
   - TransparentFX

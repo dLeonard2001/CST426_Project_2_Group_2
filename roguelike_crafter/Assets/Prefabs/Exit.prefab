@@ -5495,9 +5495,10 @@ GameObject:
   - component: {fileID: 2631205115241348130}
   - component: {fileID: 2631205115241348131}
   - component: {fileID: 2631205115241348128}
+  - component: {fileID: 7124584139363654534}
   m_Layer: 0
   m_Name: Exit
-  m_TagString: Untagged
+  m_TagString: End
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5510,8 +5511,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2631205115241348129}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 198.14963, y: 465.37894, z: 352.5077}
-  m_LocalScale: {x: 1, y: 0.077222, z: 1}
+  m_LocalPosition: {x: 2.2004, y: -0, z: 2.0577}
+  m_LocalScale: {x: 9.982089, y: 0.6, z: 8.442802}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2631205115196926188}
@@ -10229,6 +10230,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7794237, y: 2.8991148, z: 0.9100291}
   m_Center: {x: 0.00031805038, y: 1.3211395, z: 0}
+--- !u!114 &7124584139363654534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631205115241348129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1421ff4743511604383e68af24d617a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2631205115904611126
 GameObject:
   m_ObjectHideFlags: 0
@@ -10238,6 +10251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2631205115904611121}
+  - component: {fileID: 7125455097572035691}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -10260,3 +10274,26 @@ Transform:
   m_Father: {fileID: 2631205115241348190}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7125455097572035691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631205115904611126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a733ce80b93220b4db9522810ab69f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xStart: 0
+  xEnd: 0
+  zStart: 0
+  zEnd: 0
+  timer: 0
+  restartTimer: 0
+  timer2: 0
+  triggerEnd: 0
+  active: 0
+  godRays: {fileID: 6966202577138725303, guid: 34b5790b6a463544cad47f37e5224b39, type: 3}
+  currentPlacements: []

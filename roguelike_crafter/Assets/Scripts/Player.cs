@@ -35,8 +35,14 @@ public class Player : MonoBehaviour
     {
         lookingAround();
         updateMovement();
+        //updateGravity();
     }
 
+    void updateGravity()
+    {
+        var gravity = Physics.gravity * Time.deltaTime;
+        movementSpeed = CC.isGrounded ? -1f : movementSpeed + gravity.y;
+    }
     void lookingAround()
     {
         Vector2 lookInput = lookAction.ReadValue<Vector2>();
