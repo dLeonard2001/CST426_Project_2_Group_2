@@ -6,5 +6,5 @@ public abstract class EnemyLookAt : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public abstract void LookAt(Transform target);
+    public abstract void LookAt(Vector3 target);
 }
