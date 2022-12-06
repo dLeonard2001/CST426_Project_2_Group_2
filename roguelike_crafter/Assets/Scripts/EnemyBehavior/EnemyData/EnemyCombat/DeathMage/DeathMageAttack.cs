@@ -135,6 +135,7 @@ public class DeathMageAttack : EnemyCombat
             mageState = MageState.InDanger;
             enemyData.attackDelay -= 0.4f;
             enemyData.attack =  (enemyData.attack / 3) * 2;
+            enemyData.defense += 2;
         }
 
         enemyData.hp = enemyData.hp <= 0 ? 0 : enemyData.hp;
