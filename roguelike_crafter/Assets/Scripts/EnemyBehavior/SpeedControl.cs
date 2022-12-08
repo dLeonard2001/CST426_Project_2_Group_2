@@ -12,7 +12,7 @@ public class SpeedControl : MonoBehaviour
     private void OnEnable()
     {
         startFalling = true;
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        gameObject.layer = LayerMask.NameToLayer("RandomPosition");
         rb = GetComponent<Rigidbody>();
         Reset();
     }
@@ -35,7 +35,7 @@ public class SpeedControl : MonoBehaviour
     IEnumerator WaitAndUnenable()
     {
         yield return new WaitForSeconds(0.2f);
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        gameObject.layer = LayerMask.NameToLayer("RandomPosition");
         GetComponent<BoxCollider>().isTrigger = true;
         rb.constraints = RigidbodyConstraints.FreezeAll;
         gameObject.SetActive(false);
@@ -45,7 +45,7 @@ public class SpeedControl : MonoBehaviour
     {
         GetComponent<BoxCollider>().isTrigger = false;
         startFalling = true;
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        gameObject.layer = LayerMask.NameToLayer("RandomPosition");
         rb.constraints = RigidbodyConstraints.None;
     }
 
