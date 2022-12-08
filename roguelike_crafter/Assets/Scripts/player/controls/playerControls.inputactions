@@ -132,9 +132,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "unlock_mouse",
+                    "name": "Pause",
                     "type": "Button",
-                    "id": "d7209e25-3932-44ff-b3a4-3da4db54d16d",
+                    "id": "5b2169c0-8e96-462d-b5b1-0be4886fde1c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -298,12 +298,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1d89ec60-e8a9-477a-a518-f79a6c404661",
-                    "path": "<Keyboard>/leftAlt",
+                    "id": "a96e0af5-16c5-4f19-84c6-6f56b1fa9dfb",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "unlock_mouse",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

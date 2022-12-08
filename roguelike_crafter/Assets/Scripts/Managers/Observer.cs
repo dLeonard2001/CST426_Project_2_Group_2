@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -8,15 +9,17 @@ using Random = UnityEngine.Random;
 public class Observer : MonoBehaviour
 {
     [Header("Loot Table")] 
-    public Hashtable lootTable;
+    
     public List<GameObject> item_objects;
 
     public UnityEvent enemyDeathEvent;
 
+    private Hashtable lootTable;
     private Queue<Vector3> enemyDeath_pos;
     private float current_luck;
 
     // Start is called before the first frame update
+
     void Start()
     {
         enemyDeath_pos = new Queue<Vector3>();

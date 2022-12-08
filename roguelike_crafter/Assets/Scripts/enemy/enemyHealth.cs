@@ -1,9 +1,16 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class enemyHealth : MonoBehaviour
 {
     public long health;
-    public Observer manager;
+    public Observer observer;
+
+    private void Awake()
+    {
+        observer = GameObject.FindWithTag("gamemanager").GetComponent<Observer>();
+    }
 
     public void TakeDamage(long damageToInflict)
     {
@@ -11,10 +18,12 @@ public class enemyHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            manager.enemyHasDied(transform.position);
+            observer.enemyHasDied(transform.position);
             Destroy(gameObject);
         }
         
         // update enemy health
     }
+    
+    
 }
