@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -20,11 +22,12 @@ public class healthController : MonoBehaviour
     public TextMeshProUGUI amount_of_health;
 
 
+    public UnityEvent onDeathEvent;
     private void Update()
     {
         testDmg = Random.Range(0, 21);
-        if(Input.GetKeyDown(KeyCode.K))
-            takeDamage(testDmg);
+        // if(Input.GetKeyDown(KeyCode.K))
+        //     takeDamage(testDmg);
     }
 
     public void setCurrentHealth(long health)
@@ -39,6 +42,16 @@ public class healthController : MonoBehaviour
     public void setCurrentArmor(float newArmor)
     {
         armor = newArmor;
+    }
+
+    public void addMaxHealth(long hpToAdd)
+    {
+        health += hpToAdd;
+        maxHealth += hpToAdd;
+        
+        updateUI();
+        
+        heal(hpToAdd);
     }
 
     public void heal(long hpToHeal)
@@ -56,7 +69,7 @@ public class healthController : MonoBehaviour
 
     public void takeDamage(long damage)
     {
-        health -= damage;
+        health -= Convert.ToInt64(Mathf.Max(5, damage - armor));
 
         if (health < 0)
         {
@@ -69,7 +82,9 @@ public class healthController : MonoBehaviour
 
     public void Death()
     {
-        Debug.Break();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        onDeathEvent.Invoke();
     }
 
     public void initializeHealth()

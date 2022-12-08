@@ -2,11 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.TestTools;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -102,6 +98,7 @@ public class ranged_char : MonoBehaviour
 
     [Header("Other")] 
     public LayerMask whatIsGround;
+    public GameObject spawnPoint;
 
     // player input
     private InputManager inputManager;
@@ -161,6 +158,8 @@ public class ranged_char : MonoBehaviour
         health_controller.setMaxHealth(health);
         health_controller.initializeHealth();
         health_controller.setCurrentArmor(armor);
+
+        transform.position = spawnPoint.transform.position;
     }
     
     
@@ -196,6 +195,18 @@ public class ranged_char : MonoBehaviour
         if (inputManager.pauseGame())
         {
             changePauseState();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && !Cursor.visible)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && Cursor.visible)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         if (inputManager.useAbility_1() && !ability_OnCooldown[0])
@@ -235,7 +246,7 @@ public class ranged_char : MonoBehaviour
     // handle input
     private void FixedUpdate()
     {
-        if (pauseState)
+        if (pauseState || Cursor.visible)
             return;
         
 
@@ -422,7 +433,9 @@ public class ranged_char : MonoBehaviour
         switch (stat_id)
         {
             case 0: // health
-                health = Convert.ToInt64(statToAdd);
+                Debug.Log("updating health");
+                // health = Convert.ToInt64(statToAdd);
+                health_controller.addMaxHealth(Convert.ToInt64(statToAdd));
                 break;
             case 1: // base damage
                 damage = Convert.ToInt64(base_damage * statToAdd);
@@ -536,7 +549,7 @@ public class ranged_char : MonoBehaviour
         {
             if (ability_1_charges == 0)
             {
-                Debug.Log("no charges to use");
+                // Debug.Log("no charges to use");
             }
             else
             {
@@ -562,7 +575,7 @@ public class ranged_char : MonoBehaviour
                 gl_round.GetComponent<Rigidbody>().AddForce(direction.normalized * gl_script.projectile_speed, ForceMode.Impulse);
                 gl_round.GetComponent<gl_projectile>().setDamage(calculateDamage(0));
                 
-                Debug.Log("using a GL");
+                // Debug.Log("using a GL");
             }
             
             resetAbility(0);

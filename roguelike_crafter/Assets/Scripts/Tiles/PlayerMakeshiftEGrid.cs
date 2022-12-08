@@ -23,10 +23,10 @@ public class PlayerMakeshiftEGrid : MonoBehaviour
 
     void Update()
     {
-        xStart = transform.parent.transform.position.x - 10;
-        xEnd = transform.parent.transform.position.x + 10;
-        zStart = transform.parent.transform.position.z - 10;
-        zEnd = transform.parent.transform.position.z + 10;
+        xStart = transform.transform.position.x - 10;
+        xEnd = transform.transform.position.x + 10;
+        zStart = transform.transform.position.z - 10;
+        zEnd = transform.transform.position.z + 10;
         if (timer > 0 && !active)
         {
             timer -= Time.deltaTime;

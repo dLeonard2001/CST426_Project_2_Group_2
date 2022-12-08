@@ -19,21 +19,30 @@ public class projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("enemy"))
+        if (other.transform.CompareTag("enemy") || other.transform.CompareTag("Enemy"))
         {
-            enemyHealth enemy = other.transform.GetComponent<enemyHealth>();
+            DeathMageAttack enemy = other.transform.GetComponent<DeathMageAttack>();
+            DeathAttack enemy_2 = other.transform.GetComponent<DeathAttack>();
+            if (enemy)
+            {
+                enemy.GetDamage(damage);
+            }
+            else
+            {
+                enemy_2.GetDamage(damage);
+            }
             buff_inventory affect = other.transform.GetComponent<buff_inventory>();
             // Debug.Log(damage);
             
-            Debug.LogWarning(isHollowPoint);
+            // Debug.LogWarning(isHollowPoint);
 
             if (isHollowPoint)
             {
-                Debug.LogWarning("applying bleed affect");
+                // Debug.LogWarning("applying bleed affect");
                 affect.addBleedAffect();
             }
             
-            enemy.TakeDamage(damage);
+            
         }
         Destroy(gameObject);
     }
@@ -42,6 +51,6 @@ public class projectile : MonoBehaviour
     {
         isHollowPoint = status;
         
-        Debug.LogWarning(isHollowPoint + " changing hollow point status");
+        // Debug.LogWarning(isHollowPoint + " changing hollow point status");
     }
 }

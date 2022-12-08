@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum MageState
@@ -14,10 +15,12 @@ public class DeathMageAttack : EnemyCombat
     private MageState mageState = MageState.Healthy;
     private List<string> AttackList = new List<string> { "LeftAttack", "RightAttack", "Kick" };
     private float skillCoolDown = 0;
+    private Observer gm;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        gm = GameObject.Find("GameManager").GetComponent<Observer>();
         Init();
     }
 
@@ -118,6 +121,8 @@ public class DeathMageAttack : EnemyCombat
         transform.GetComponentInChildren<Collider>().enabled = false;
         GetComponent<EnemyBasicMovement>().speed = 0;
         StopAllCoroutines();
+        
+        gm.enemyHasDied(transform.position);
     }
 
     public void CallDestory()
@@ -141,7 +146,7 @@ public class DeathMageAttack : EnemyCombat
         enemyData.hp = enemyData.hp <= 0 ? 0 : enemyData.hp;
 
         UpdateHealthBar();
-
+        Debug.Log("taking " + damage);
         if (enemyData.hp <= 0)
         {
             Death();
@@ -167,10 +172,14 @@ public class DeathMageAttack : EnemyCombat
 
         if (movement.hasTarget())
         {
+            Debug.Log("player should be taking damage");
             if (movement.InAttackRange())
             {
+                
                 var player = movement.GetTarget();
-                player.GetComponent<healthController>()?.takeDamage((long)enemyData.attack);
+                //Debug.Log(player);
+                player.GetComponentInParent<healthController>()?.takeDamage((long)enemyData.attack);
+                //Debug.Break();
             }
         }
     }
