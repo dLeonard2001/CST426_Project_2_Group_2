@@ -31,7 +31,6 @@ public class display : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         info_animator.SetTrigger("off");
-        info_animator.SetTrigger("reset");
         // Debug.Log("leaving");
     }
 

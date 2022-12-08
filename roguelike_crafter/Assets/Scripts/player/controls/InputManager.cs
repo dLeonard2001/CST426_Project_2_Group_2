@@ -104,9 +104,9 @@ public class InputManager : MonoBehaviour
         return playerControls.player.attack.IsPressed();
     }
 
-    public bool unlock_mouse()
+    public bool pauseGame()
     {
-        return playerControls.player.unlock_mouse.WasPressedThisFrame();
+        return playerControls.player.Pause.WasPressedThisFrame();
     }
 
 }
