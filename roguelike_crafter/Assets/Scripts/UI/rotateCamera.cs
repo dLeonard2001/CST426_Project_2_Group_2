@@ -9,7 +9,8 @@ public class rotateCamera : MonoBehaviour
 {
     public Animator cam_anim;
     public Animator panel_anim;
-
+    public Animator control_panel_anim;
+    
     private void Start()
     {
         cam_anim = GetComponent<Animator>();
@@ -26,6 +27,34 @@ public class rotateCamera : MonoBehaviour
 
         cam_anim.SetTrigger("start");
         panel_anim.SetTrigger("off");
+    }
+
+    public void controlsOn()
+    {
+        StartCoroutine(switchToControlPanel());
+    }
+
+    public void controlsOff()
+    {
+        StartCoroutine(switchToMainMenuPanel());
+    }
+    
+    public IEnumerator switchToMainMenuPanel()
+    {
+        control_panel_anim.SetTrigger("off");
+
+        yield return new WaitForSeconds(1);
+        
+        panel_anim.SetTrigger("on");
+    }
+
+    public IEnumerator switchToControlPanel()
+    {
+        panel_anim.SetTrigger("off");
+
+        yield return new WaitForSeconds(2.9f);
+        
+        control_panel_anim.SetTrigger("on");
     }
     
 }

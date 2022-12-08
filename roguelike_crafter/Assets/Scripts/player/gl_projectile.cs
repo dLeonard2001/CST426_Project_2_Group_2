@@ -23,15 +23,25 @@ public class gl_projectile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 7, transform.forward,0, isEnemy);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 20, transform.forward,0);
 
+        Debug.Log(hits.Length);
         foreach (RaycastHit h in hits)
         {
-            if (h.transform.CompareTag("enemy"))
+            if (h.transform.CompareTag("enemy") || h.transform.CompareTag("Enemy"))
             {
-                h.transform.GetComponent<enemyHealth>().TakeDamage(damage);
-                Debug.Log(damage);
-                Debug.Log(hits.Length);
+                //Debug.Log("enemy taking dmg by gl");
+                //Debug.Log(damage);
+                if (h.transform.GetComponent<DeathMageAttack>())
+                {
+                    h.transform.GetComponent<DeathMageAttack>().GetDamage(damage);
+                }
+
+                if (h.transform.GetComponent<DeathAttack>())
+                {
+                    h.transform.GetComponent<DeathAttack>().GetDamage(damage);
+                }
+                
             }
         }
         

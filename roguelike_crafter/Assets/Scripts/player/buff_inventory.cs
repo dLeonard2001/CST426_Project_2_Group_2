@@ -9,13 +9,19 @@ public class buff_inventory : MonoBehaviour
     private float maxTimer;
     private int stackCounter;
     private int usagesLeft;
-    private enemyHealth enemy;
+    private DeathMageAttack enemy;
+    private DeathAttack enemy_2;
     private bool cr_active;
 
     private void Start()
     {
         stackCounter = 0;
-        enemy = GetComponent<enemyHealth>();
+        enemy = GetComponent<DeathMageAttack>();
+
+        if (!enemy)
+        {
+            enemy_2 = GetComponent<DeathAttack>();
+        }
         maxTimer = useBleedStackTimer;
     }
 
@@ -44,8 +50,19 @@ public class buff_inventory : MonoBehaviour
     {
         cr_active = true;
         // Debug.LogWarning(stackCounter);
+
+        long damage;
+
+        if (enemy)
+        {
+            damage = Convert.ToInt64(enemy.enemyData.hp * 0.1f);
+        }
+        else
+        {
+            damage = Convert.ToInt64(enemy_2.enemyData.hp * 0.1f);
+        }
         
-        long damage = Convert.ToInt64(enemy.health * 0.1f);
+        
 
         while (usagesLeft > 0)
         {
@@ -53,7 +70,14 @@ public class buff_inventory : MonoBehaviour
             if (useBleedStackTimer < 0)
             {
                 // Debug.LogWarning("taking bleed damage");
-                enemy.TakeDamage(damage);
+                if (enemy)
+                {
+                    enemy.GetDamage(damage);
+                }
+                else
+                {
+                    enemy_2.GetDamage(damage);
+                }
                 usagesLeft--;
                 refreshTimer();
             }

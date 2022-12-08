@@ -195,6 +195,7 @@ public class EnemyBasicMovement : MonoBehaviour
 
     public Transform GetTarget()
     {
+        Debug.Log(enemyData.currentTarget);
         return enemyData.currentTarget;
     }
 

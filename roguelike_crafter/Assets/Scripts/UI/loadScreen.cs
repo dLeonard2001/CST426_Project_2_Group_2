@@ -15,11 +15,14 @@ public class loadScreen : MonoBehaviour
 
     public void startGame()
     {
-        StartCoroutine(changeScene("player_movement"));
+        StartCoroutine(changeScene("MapLab"));
     }
 
     public void exitLevel()
     {
+        Time.timeScale = 1;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         StartCoroutine(changeScene("MainMenu"));
     }
 

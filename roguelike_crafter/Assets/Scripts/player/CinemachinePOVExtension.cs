@@ -1,7 +1,5 @@
-using System;
 using Cinemachine;
 using UnityEngine;
-using Input = UnityEngine.Windows.Input;
 
 public class CinemachinePOVExtension : CinemachineExtension
 {

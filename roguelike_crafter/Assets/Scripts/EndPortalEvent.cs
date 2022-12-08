@@ -24,18 +24,11 @@ public class EndPortalEvent : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!hasTriggered)
-        {
-            epeg.startEvent();
-            hasTriggered = true;
-            renderer1.material.color = Color.green;
-            renderer2.material.color = renderer1.material.color;
-        }
-        
-        else if (hasTriggered && !epeg.triggerEnd)
+        if (other.CompareTag("Player"))
         {
             // change it main menu for now.
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
+
     }
 }

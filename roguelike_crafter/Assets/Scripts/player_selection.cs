@@ -9,7 +9,6 @@ public class player_selection : MonoBehaviour
 {
     public Animator player_anim;
     public Animator spotlight_anim;
-    public GameObject spotLight;
 
     public UnityEvent start_event;
     private bool cr_active;

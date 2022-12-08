@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DeathAttack : EnemyCombat
 {
     //Death should run faster than Player
     private Animator anim;
+    private Observer gm;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        gm = GameObject.Find("GameManager").GetComponent<Observer>();
         Init();
     }
 
@@ -62,6 +65,8 @@ public class DeathAttack : EnemyCombat
         transform.GetComponent<Collider>().enabled = false;
         GetComponent<EnemyBasicMovement>().speed = 0;
         StopAllCoroutines();
+        
+        gm.enemyHasDied(transform.position);
     }
 
     public void CallDestory()
@@ -77,6 +82,8 @@ public class DeathAttack : EnemyCombat
         enemyData.hp = enemyData.hp <= 0 ? 0 : enemyData.hp;
 
         UpdateHealthBar();
+        
+        Debug.Log("taking " + damage);
 
         if(enemyData.hp <= 0)
         {
@@ -90,7 +97,9 @@ public class DeathAttack : EnemyCombat
 
         if (player != null)
         {
-            player.GetComponent<healthController>()?.takeDamage((long)enemyData.attack);
+            //Debug.Log(player);
+            player.GetComponentInParent<healthController>()?.takeDamage((long)enemyData.attack);
+            //Debug.Break();
             hitBox.GetComponent<AttackTrigger>().player = null;
         }
 

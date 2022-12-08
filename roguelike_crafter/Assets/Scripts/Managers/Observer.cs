@@ -30,9 +30,12 @@ public class Observer : MonoBehaviour
             lootTable.Add(id.GetComponent<item_id>().id, 0);
         }
     }
+    
 
     public void enemyHasDied(Vector3 position)
     {
+        Debug.Log("enemy has died");
+        
         enemyDeath_pos.Enqueue(position);
         enemyDeathEvent.Invoke();
     }

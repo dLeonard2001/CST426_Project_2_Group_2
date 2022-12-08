@@ -15,10 +15,22 @@ public class cannon_hitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("enemy"))
+        
+        if (other.CompareTag("enemy") || other.CompareTag("Enemy"))
         {
-            other.GetComponent<enemyHealth>().TakeDamage(damage);
-            other.GetComponent<Rigidbody>().AddForce(-other.transform.forward * knockback_force, ForceMode.Impulse);
+            // Debug.Log(other.name);
+            
+            if (other.transform.GetComponent<DeathMageAttack>())
+            {
+                other.transform.GetComponent<DeathMageAttack>().GetDamage(damage);
+            }
+
+            if (other.transform.GetComponent<DeathAttack>())
+            {
+                other.transform.GetComponent<DeathAttack>().GetDamage(damage);
+            }
+            // other.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * knockback_force, ForceMode.Impulse);
+            // Debug.Break();
         }
     }
 
