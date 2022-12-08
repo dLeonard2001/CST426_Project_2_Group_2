@@ -59,6 +59,8 @@ public class DeathAttack : EnemyCombat
     public override void Death()
     {
         anim.SetTrigger("Death");
+        transform.GetComponent<Collider>().enabled = false;
+        GetComponent<EnemyBasicMovement>().speed = 0;
         StopAllCoroutines();
     }
 
@@ -71,6 +73,9 @@ public class DeathAttack : EnemyCombat
     public override void GetDamage(float damage)
     {
         enemyData.hp -= Mathf.Max(5, damage - enemyData.defense);
+        
+        enemyData.hp = enemyData.hp <= 0 ? 0 : enemyData.hp;
+
         UpdateHealthBar();
 
         if(enemyData.hp <= 0)
@@ -85,7 +90,7 @@ public class DeathAttack : EnemyCombat
 
         if (player != null)
         {
-            player.GetComponent<PlayerGetAttack>().GetDamage(enemyData.attack);
+            player.GetComponent<healthController>()?.takeDamage((long)enemyData.attack);
             hitBox.GetComponent<AttackTrigger>().player = null;
         }
 

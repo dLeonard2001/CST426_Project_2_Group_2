@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: 
   enemyDataList:
-  - ID: 1001
-    hp: 100
+  - name: Death
+    ID: 1001
+    MaxHp: 100
+    hp: 0
     attack: 20
+    attackDelay: 2
     defense: 5
-  - ID: 1002
-    hp: 100
+  - name: DeathMage
+    ID: 1002
+    MaxHp: 100
+    hp: 0
     attack: 20
+    attackDelay: 1.6
     defense: 5

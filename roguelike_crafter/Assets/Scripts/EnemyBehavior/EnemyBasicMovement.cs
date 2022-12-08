@@ -11,10 +11,11 @@ public class EnemyBasicMovement : MonoBehaviour
     [SerializeField] private EnemyData enemyData;
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f;
     [SerializeField] private ContextSolver movementDirectionSolver;
-    [SerializeField] private float speed;
+    public float speed;
     [SerializeField] private Vector3 movementDirection = Vector3.zero;
     private bool isChasing = false;
     public float safetyDistance;
+    public float distance;
     public bool needPatrol = false;
     public GameObject patrolBehavior;
 
@@ -51,9 +52,13 @@ public class EnemyBasicMovement : MonoBehaviour
     {
         if (enemyData.currentTarget != null)
         {
-            isWalking = true;
+            distance = Vector3.Distance(enemyData.currentTarget.position, transform.position);
+            if (distance > safetyDistance)
+            {
+                isWalking = true;
+            }
             //transform.LookAt(enemyData.currentTarget);
-            GetComponent<EnemyLookAt>().LookAt(enemyData.currentTarget);
+            GetComponent<EnemyLookAt>().LookAt(movementDirection);
 
             if (!isChasing)
             {
@@ -73,14 +78,23 @@ public class EnemyBasicMovement : MonoBehaviour
         SetAnimation();
     }
 
+    private bool ableMove = false;
+    public void Move()
+    {
+        ableMove = true;
+    }
 
-
+    public void StopMoving()
+    {
+        ableMove = false;
+    }
     private void FixedUpdate()
     {
         //GetComponent<Rigidbody>().AddForce(movementDirection * speed * Time.deltaTime);
-
-        transform.position += movementDirection * Time.fixedDeltaTime * speed;
-
+        if(ableMove)
+        {
+            transform.position += movementDirection * Time.fixedDeltaTime * speed;
+        }
     }
 
     private void SetAnimation()
@@ -99,16 +113,18 @@ public class EnemyBasicMovement : MonoBehaviour
         }
         else
         {
-            float distance = Vector3.Distance(enemyData.currentTarget.position, transform.position);
+            distance = Vector3.Distance(enemyData.currentTarget.position, transform.position);
 
             if (distance < safetyDistance)
             {
                 movementDirection = Vector3.zero;
                 isWalking = false;
 
+                FinishAnimation();
+                
                 Attack();
 
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(GetComponent<EnemyCombat>().enemyData.attackDelay);
                 
                 StartCoroutine(ChaseAndAttack());
             }
@@ -165,6 +181,21 @@ public class EnemyBasicMovement : MonoBehaviour
     internal void StartAnimation()
     {
         isInAnimation = true;
+    }
+
+    public bool InAttackRange()
+    {
+        return distance < safetyDistance;
+    }
+
+    public bool hasTarget()
+    {
+        return enemyData.currentTarget;
+    }
+
+    public Transform GetTarget()
+    {
+        return enemyData.currentTarget;
     }
 
 }

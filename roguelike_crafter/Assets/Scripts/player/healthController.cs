@@ -79,7 +79,7 @@ public class healthController : MonoBehaviour
 
     private void updateUI()
     {
-        amount_of_health.text =  health + "/" + maxHealth;
-        hp_display.fillAmount = health/Mathf.Ceil(maxHealth);
+        if(amount_of_health != null)    amount_of_health.text =  health + "/" + maxHealth;
+        if(hp_display != null)    hp_display.fillAmount = health/Mathf.Ceil(maxHealth);
     }
 }

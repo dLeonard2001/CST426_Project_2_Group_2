@@ -10240,7 +10240,7 @@ GameObject:
   - component: {fileID: 8902418290137704082}
   m_Layer: 2
   m_Name: Death
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10367,7 +10367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97507a59f47bcae4fa412cce832171fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 1002
+  ID: 1001
   enemyBasicMovement: {fileID: 8902418290137704077}
   hitBox: {fileID: 1503915010}
   enemyData:

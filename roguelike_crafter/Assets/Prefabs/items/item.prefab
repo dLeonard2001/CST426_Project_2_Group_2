@@ -224,7 +224,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!95 &7407037208215118471
 Animator:
@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2d29d3357292745963379c335645d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item_id: 0
   info_animator: {fileID: 0}
   info_text: {fileID: 0}
   item_count: {fileID: 4347788795718395601}

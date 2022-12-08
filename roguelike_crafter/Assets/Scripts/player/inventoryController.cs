@@ -10,7 +10,7 @@ public class inventoryController : MonoBehaviour
     public Image itemDisplay;
     private Hashtable inventory;
 
-    private character_1 player;
+    private ranged_char player;
     private float x_pos;
     private float y_pos;
     private float x_pos_buffer;
@@ -23,7 +23,7 @@ public class inventoryController : MonoBehaviour
     {
         images = new List<Image>();
         
-        player = GetComponent<character_1>();
+        player = GetComponent<ranged_char>();
         inventory = new Hashtable();
 
         x_pos = -475;

@@ -10,7 +10,7 @@ public abstract class EnemyCombat : MonoBehaviour
     [SerializeField] protected Collider hitBox;
 
     [Header("No Need")]
-    [SerializeField] protected EnemyCombatData enemyData;
+    public EnemyCombatData enemyData;
     protected GameObject healthBar;
     [SerializeField] protected float yForHealthBar = 1f;
     private void Start()
