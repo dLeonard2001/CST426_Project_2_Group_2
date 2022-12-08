@@ -6,12 +6,15 @@ public class EndPortalEvent : MonoBehaviour
     EndPortalEGrid epeg;
     SceneManager sceneManager;
     public float timer;
+    Renderer renderer1, renderer2;
 
     void Start()
     {
         hasTriggered = false;
         epeg = transform.GetChild(1).GetComponent<EndPortalEGrid>();
         sceneManager = GetComponent<SceneManager>();
+        renderer1 = GetComponent<Renderer>();
+        renderer2 = transform.GetChild(0).GetComponent<Renderer>();
     }
 
     void Update()
@@ -25,6 +28,8 @@ public class EndPortalEvent : MonoBehaviour
         {
             epeg.startEvent();
             hasTriggered = true;
+            renderer1.material.color = Color.green;
+            renderer2.material.color = renderer1.material.color;
         }
         
         else if (hasTriggered && !epeg.triggerEnd)

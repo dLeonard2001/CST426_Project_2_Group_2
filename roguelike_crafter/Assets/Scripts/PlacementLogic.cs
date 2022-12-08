@@ -35,6 +35,7 @@ public class PlacementLogic : MonoBehaviour
         }
         yGate = markers[0].y + 1;
         yNegativeGate = markers[0].y - 1;
+        Debug.Log("negative y Gate = " + yNegativeGate + " y Gate = " + yGate);
         passed = playableArea();
         
         if (passed)

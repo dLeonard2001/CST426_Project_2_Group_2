@@ -7,11 +7,12 @@ public class MakeshiftGrid : MonoBehaviour
     public GameObject placement;
     public GameObject ePlacement;
     public List<GameObject> currentPlacements;
-    public int xStart = 77;
-    public int xLast = 947;
-    public int zStart = 18;
-    public int zLast = 955;
-    public float timer = 30f;
+    public int xStart;
+    public int xLast;
+    public int zStart;
+    public int zLast;
+    public float timer;
+    
     bool spawningOtherObjects, spawningEn;
     // Start is called before the first frame update
     void Start()
