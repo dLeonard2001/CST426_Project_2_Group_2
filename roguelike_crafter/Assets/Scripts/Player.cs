@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// TODO: Have a toggle sprint button and make the camera lowered to simulate crouching, whatever style of crouch is your choice
 public class Player : MonoBehaviour
 {
     public float mouseSpeed;
@@ -14,16 +13,20 @@ public class Player : MonoBehaviour
     PlayerInput playerInput;
     InputAction moveAction;
     InputAction lookAction;
+    InputAction interactAction;
+    public List<GameObject> playerSpawnLocations;
 
     void Awake()
     {
+        StartCoroutine(delayedStart());
         CC = GetComponent<CharacterController>();
         camTransform = Camera.main.transform;
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["move"];
         lookAction = playerInput.actions["look"];
-
+        interactAction = playerInput.actions["interact"];
     }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -32,8 +35,14 @@ public class Player : MonoBehaviour
     {
         lookingAround();
         updateMovement();
+        //updateGravity();
     }
 
+    void updateGravity()
+    {
+        var gravity = Physics.gravity * Time.deltaTime;
+        movementSpeed = CC.isGrounded ? -1f : movementSpeed + gravity.y;
+    }
     void lookingAround()
     {
         Vector2 lookInput = lookAction.ReadValue<Vector2>();
@@ -49,7 +58,7 @@ public class Player : MonoBehaviour
     void updateMovement()
     {
         var moveInput = moveAction.ReadValue<Vector2>();
-        
+
         Vector3 inputVect = new Vector3();
         inputVect += transform.forward * moveInput.y;
         inputVect += transform.right * moveInput.x;
@@ -64,5 +73,20 @@ public class Player : MonoBehaviour
         looking.y = rotation.eulerAngles.z;
         //vel = Vector3.zero;
 
+    }
+    // ! while intergrating with the main branch have the a function to detect the end portal and trigger it on the box trigger
+
+    IEnumerator delayedStart()
+    {
+        Debug.Log("Start Delay");
+        yield return new WaitForSeconds(3);
+        Debug.Log("Delay Ends");
+        GameObject[] temp = GameObject.FindGameObjectsWithTag("Player TP");
+        for (int c = 0; c < temp.Length; c++)
+        {
+            playerSpawnLocations.Add(temp[c]);
+        }
+        int selection = Random.Range(0, temp.Length);
+        Teleport(playerSpawnLocations[selection].transform.position, Quaternion.identity);
     }
 }
