@@ -1,39 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class rotateCamera : MonoBehaviour
 {
-
-    public Camera mainCam;
-    public float x_axis;
-    public float y_axis;
-    public float z_axis;
-
-    public float timer;
-    private float maxTime;
+    public Animator cam_anim;
+    public Animator panel_anim;
 
     private void Start()
     {
-        maxTime = timer;
-        x_axis = Random.Range(-0.25f, 0.25f);
-        y_axis = Random.Range(-0.25f, 0.25f);
-        z_axis = Random.Range(-0.25f, 0.25f);
+        cam_anim = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    // camera settings for showing character selection
+        // position = vec3(0, -7.85, 0)
+        // rotation = vec3(20, 0, 0)
+        // spotlight intensity = 20
+        // remove mainMenu panel
+
+    public void startCharacterSelection()
     {
-        if (timer < 0)
-        {
-            timer = maxTime;
-            x_axis = Random.Range(-0.25f, 0.25f);
-            y_axis = Random.Range(-0.25f, 0.25f);
-            z_axis = Random.Range(-0.25f, 0.25f);
-        }
 
-        timer -= Time.fixedDeltaTime;
-        mainCam.transform.Rotate(new Vector3(x_axis, y_axis, z_axis));
+        cam_anim.SetTrigger("start");
+        panel_anim.SetTrigger("off");
     }
+    
 }

@@ -8,18 +8,33 @@ public class loadScreen : MonoBehaviour
 {
     public Animator sceneTransitionAnimation;
 
-    public void loadGame()
+    public void loadCharacterSelection()
     {
-        StartCoroutine(changeScene());
+        
     }
 
-    private IEnumerator changeScene()
+    public void startGame()
+    {
+        StartCoroutine(changeScene("player_movement"));
+    }
+
+    public void exitLevel()
+    {
+        StartCoroutine(changeScene("MainMenu"));
+    }
+
+    public void quitGame()
+    {
+        Application.Quit();
+    }
+
+    private IEnumerator changeScene(string str)
     {
         sceneTransitionAnimation.SetTrigger("exit");
 
         yield return new WaitForSeconds(4f);
         
         // load next scene/level
-        SceneManager.LoadScene("MapLab");
+        SceneManager.LoadScene(str);
     }
 }

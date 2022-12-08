@@ -97,6 +97,9 @@ public class ranged_char : MonoBehaviour
     public Rigidbody rb_player;
     public Camera cam;
 
+    public GameObject pausePanel;
+    private bool pauseState;
+
     [Header("Other")] 
     public LayerMask whatIsGround;
 
@@ -159,21 +162,42 @@ public class ranged_char : MonoBehaviour
         health_controller.initializeHealth();
         health_controller.setCurrentArmor(armor);
     }
+    
+    
+    public void changePauseState()
+    {
+        if (pauseState)
+        {
+            pausePanel.SetActive(false);
+            Time.timeScale = 1;
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            pauseState = false;
+            pausePanel.SetActive(false);
+        }
+        else
+        {
+            pausePanel.SetActive(true);
+            Time.timeScale = 0;
+            
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+
+            pauseState = true;
+            pausePanel.SetActive(true);
+        }
+    }
 
     // get input
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && !Cursor.visible)
+        if (inputManager.pauseGame())
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
+            changePauseState();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftAlt) && Cursor.visible)
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        
+
         if (inputManager.useAbility_1() && !ability_OnCooldown[0])
             ability_useAbility[0] = true;
         
@@ -211,6 +235,10 @@ public class ranged_char : MonoBehaviour
     // handle input
     private void FixedUpdate()
     {
+        if (pauseState)
+            return;
+        
+
         if (inputManager.Attack() && readyToShoot)
             Shoot();
         
@@ -296,6 +324,8 @@ public class ranged_char : MonoBehaviour
             rb_player.velocity = new Vector3(limitedVel.x, vel.y, limitedVel.z);
         }
     }
+
+    
     
     // fire the gun 
     private void Shoot()
